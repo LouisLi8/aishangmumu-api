@@ -1,5 +1,10 @@
-const router = require('koa-router')()
+const router = require('koa-router')({
+  prefix: '/api/v1'
+});
 
+// const router = new Router({
+//   prefix: '/api/v1'
+// });
 router.get('/', async (ctx, next) => {
   await ctx.render('index', {
     title: 'Hello Koa 2!'
