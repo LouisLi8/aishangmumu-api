@@ -14,16 +14,10 @@ class UserModel {
      * @param data
      * @returns {Promise<*>}
      */
-    static async createUser(data){
-        return await Article.create({
+    static async userLogin(data){
+        return await User.create({
             email: data.email,  //邮箱
             password: data.password,  //密码
-            category: data.category, //用户分类
-            componany_name: data.componany_name, //用户分类
-            real_name: data.real_name, //用户分类
-            phone: data.phone, //用户手机号
-            has_media_contact: data.media_contact, //是否有媒介联系人
-            media_contact_phone: data.media_contact_phone, //媒介联系人
         });
     }
 
