@@ -3,12 +3,13 @@ const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')
-// const koaBody = require('koa-body');
+// const bodyparser = require('koa-bodyparser')
+const koaBody = require('koa-body');
 
 const logger = require('koa-logger')
 
 const index = require('./routes/index')
+const upload = require('./routes/upload')
 const users = require('./routes/user')
 const media = require('./routes/media')
 
@@ -16,26 +17,26 @@ const media = require('./routes/media')
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}))
+// app.use(bodyparser({
+//   enableTypes:['json','application/x-www-form-urlencoded', 'form', 'text', 'file']
+// }))
 
 // app.use(async ctx => {
 //   ctx.body = ctx.request.body;
 // })
-// app.use(koaBody({
-//   multipart:true, // 支持文件上传
-//   encoding:'gzip',
-//   formidable:{
-//     uploadDir:'./public/upload/', // 设置文件上传目录
-//     keepExtensions: true,    // 保持文件的后缀
-//     maxFieldsSize:2 * 1024 * 1024, // 文件上传大小
-//     onFileBegin:(name,file) => { // 文件上传前的设置
-//       // console.log(`name: ${name}`);
-//       // console.log(file);
-//     },
-//   }
-// }));
+app.use(koaBody({
+  multipart:true, // 支持文件上传
+  encoding:'gzip',
+  formidable:{
+    uploadDir:'./public/upload/', // 设置文件上传目录
+    keepExtensions: true,    // 保持文件的后缀
+    maxFieldsSize: 5 * 1024 * 1024, // 文件上传大小
+    onFileBegin:(name,file) => { // 文件上传前的设置
+      console.log(`name: ${name}`);
+      console.log(file);
+    },
+  }
+}));
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -65,6 +66,7 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(media.routes(), media.allowedMethods())
+app.use(upload.routes(), upload.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -7,6 +7,11 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             autoIncrement: true
         },
+        user_id:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            field: 'user_id'
+        },
         // 名称
         media_name:{
             type: DataTypes.STRING,
@@ -19,29 +24,81 @@ module.exports = function(sequelize,DataTypes){
             allowNull: false,
             field:'preference_industry_id'
         },
-        // 分类
+        // 
         support_download_ads:{
             type: DataTypes.BOOLEAN,
             allowNull: true,
             field: 'support_download_ads'
         },
-        // 分类
+        // 
+        name_of_public_address:{
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            field: 'name_of_public_address'
+        },
+        // 
+        type_of_public_address:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            field: 'type_of_public_address'
+        },
+        // 
+        main_body_of_public_adress:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            field: 'main_body_of_public_adress'
+        },
+        // 
         website_domain_name:{
             type: DataTypes.STRING,
             allowNull: true,
             field: 'website_domain_name'
         },
-        // 分类
+        // 
         media_keyword:{
             type: DataTypes.STRING,
             allowNull: true,
             field: 'media_keyword'
         },
-        // 分类
+        // 
+        status:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            field: 'status'
+        },
+        // 
+        status_name:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'status_name'
+        },
+        // 
+        appKey:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'appKey'
+        },
+        // 
+        appSecret:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'appSecret'
+        },
+        // 
+        media_type:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'media_type'
+        },
+        // 
         description:{
             type: DataTypes.STRING,
             allowNull: true,
             field: 'description'
+        },
+        rejection_reason:{
+            type: DataTypes.STRING,
+            allowNull: true
         },
         // 创建时间
         createdAt:{

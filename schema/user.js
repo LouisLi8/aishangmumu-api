@@ -7,9 +7,15 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             autoIncrement: true
         },
+        token:{
+            type: DataTypes.STRING,
+            primaryKey: true,
+            field:'token'
+        },
         // 邮箱
         email:{
             type: DataTypes.STRING,
+            primaryKey: true,
             allowNull: false,
             field: 'email'
         },
