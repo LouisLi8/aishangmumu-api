@@ -20,7 +20,7 @@ module.exports = function(sequelize,DataTypes){
         },
         // 密码
         preference_industry_id:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             field:'preference_industry_id'
         },

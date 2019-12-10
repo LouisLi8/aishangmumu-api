@@ -12,7 +12,7 @@ class userController {
         //接收客户端
         let req = ctx.request.body;
         if(req.email && req.password && req.category && req.company_name
-            && req.real_name  && req.phone && req.has_media_contact){
+            && req.real_name  && req.phone) {
             try{
                 //创建用户模型
                 const hasEmail = await UserModel.getUserDetail({email:req.email});
