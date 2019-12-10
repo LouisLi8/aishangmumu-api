@@ -3,6 +3,7 @@ const db = require('../config/db');
 const {guid} =  require("../utils/common");
 // 引入sequelize对象
 const Sequelize = db.sequelize;
+const Op = Sequelize.Op
 
 // 引入数据表模型
 const Media = Sequelize.import('../schema/media');
@@ -47,6 +48,30 @@ class MediaModel {
     }
     static async getMediaListAll(){
         return await Media.findAll();
+    }
+    static async getMediaListAllByNameOrId(id,media_name){
+        if(id && media_name) {
+            return await Sequelize.query(`
+            SELECT * FROM media where id = ${id} and media_name LIKE '%${media_name}%'
+            `);
+        }
+        else if(id && !media_name) {
+            return await Media.findAll({
+                where: {
+                    id
+                }
+            });
+        }
+        else if(!id && media_name) {
+            return await Media.findAll({
+                where: {
+                    media_name: {
+                        [Op.substring]: media_name 
+                    }
+                    // media_name: `%${media_name}%`
+                }
+            });
+        }
     }
     static async getMediaList(user_id){
         return await Media.findAll({

@@ -45,9 +45,23 @@ class MediaController {
                 // 查询媒体详情模型
                 let data = await MediaModel.getMediaDetail({id, name});
                 OK(ctx, 200, '查询成功', data);
-               
             }catch(err){
-                let data = await MediaModel.getMediaDetail({id, name});
+                OK(ctx, 300, '查询失败', err);
+            }
+        }else {
+            OK(ctx, 300, '媒体ID或者名称必须传', null);
+        }
+    }
+    static async search(ctx){
+        let id = ctx.request.body.id || "";
+        let media_name = ctx.request.body.media_name || '';
+        if(id || media_name){
+            try{
+                // 查询媒体详情模型
+                let data = await MediaModel.getMediaListAllByNameOrId(id, media_name);
+                OK(ctx, 200, '查询成功', data);
+            }catch(err){
+                let data = await MediaModel.getMediaListAllByNameOrId(id, media_name);
                 OK(ctx, 300, '查询失败', data);
             }
         }else {

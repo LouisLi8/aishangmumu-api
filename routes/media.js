@@ -14,6 +14,7 @@ router.post('/media/info',MediaController.detail)
 //获取列表
 router.get('/media/list',MediaController.list)
 router.get('/media/listAll',MediaController.listAll)
+router.post('/media/search',MediaController.search)
 
 
 module.exports = router
