@@ -25,6 +25,7 @@ class UserModel {
             phone: data.phone,  //
             has_media_contact: data.has_media_contact,  //
             media_contact_phone: data.media_contact_phone,  //
+            invite_code: guid()
         });
     }
 

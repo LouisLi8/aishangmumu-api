@@ -61,6 +61,11 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             field: 'media_contact_phone'
         },
+        // 分类
+        invite_code:{
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         // 创建时间
         createdAt:{
             type: DataTypes.DATE

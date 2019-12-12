@@ -9,21 +9,12 @@ const koaBody = require('koa-body');
 const logger = require('koa-logger')
 
 const index = require('./routes/index')
-const upload = require('./routes/upload')
-const users = require('./routes/user')
-const media = require('./routes/media')
 
 // error handler
 onerror(app)
 
 // middlewares
-// app.use(bodyparser({
-//   enableTypes:['json','application/x-www-form-urlencoded', 'form', 'text', 'file']
-// }))
 
-// app.use(async ctx => {
-//   ctx.body = ctx.request.body;
-// })
 app.use(koaBody({
   multipart:true, // 支持文件上传
   // encoding:'gzip',
@@ -62,11 +53,28 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+// 用户拦截器，拦截非法请求，未携带token的请求
+const filteredRequest = ['/api/v1/user/login', '/api/v1/user/create']
+app.use(async (ctx, next) => {
+  if(filteredRequest.includes(ctx.url)) {
+    await next()
+  }
+  else {
+    if(ctx.request.headers && ctx.request.headers.token) {
+      await next()
+    }
+    else {
+      ctx.body = {
+          code: 401,
+          msg: '未授权的用户行为，请重新登录',
+          data: null
+      }
+    }
+  }
+})
+
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
-app.use(media.routes(), media.allowedMethods())
-app.use(upload.routes(), upload.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -1,10 +1,8 @@
 // const errorResult = require('./errorResult.js');
-const {OK} = require('../utils/package');
 const fs = require('fs');
-const uploadExcelSrv = require('../plugin/upload/uploadExcelSrv');
+const uploadExcelSrv = require('./uploadExcelSrv');
 const xlsx = require('xlsx');
-class uploadController { 
-  static async uploadExcel(file){
+async function uploadExcel(file){
         try {
           const getRes = await uploadExcelSrv.getExcelObjs(file);
           if (getRes.status) {
@@ -19,5 +17,6 @@ class uploadController {
           return false;
         }
     }
-}
-module.exports = uploadController;
+module.exports = {
+  uploadExcel
+};

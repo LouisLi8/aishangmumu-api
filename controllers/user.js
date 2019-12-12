@@ -21,6 +21,7 @@ class userController {
                 }
                 else {
                     const ret = await UserModel.create(req);
+                    // if(ret.)
                     //使用刚刚创建的用户ID查询文章详情，且返回用户详情信息
                     const data = await UserModel.getUserDetail({email:ret.email});
                    if(data) {

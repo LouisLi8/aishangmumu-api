@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const downPath = path.resolve(__dirname, '../../public/upload');
 
-async function getExcelObjs (ctx) {
-  const file = ctx.request.files.file; // 获取上传文件
+async function getExcelObjs (file) {
+  // const file = ctx.request.files.file; // 获取上传文件
   const reader = fs.createReadStream(file.path); // 创建可读流
   const ext = file.name.split('.').pop(); // 获取上传文件扩展名
   const filePath = `${downPath}/${Math.random().toString()}.${ext}`;

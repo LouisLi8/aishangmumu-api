@@ -7,6 +7,6 @@ const UploadController = require('../controllers/upload');
  * 用户接口
  */
 //创建用户
-router.post('/upload',UploadController.upload);
+router.post('/file/excel/upload',UploadController.uploadExcel);
 
 module.exports = router
