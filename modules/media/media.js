@@ -63,29 +63,13 @@ class MediaModel {
         });
     }
     static async getMediaListAllByNameOrId(id,media_name){
-        if(id && media_name) {
-            return await Sequelize.query(`
-            SELECT * FROM media where id = ${id} and media_name LIKE '%${media_name}% order by id desc'
-            `);
-        }
-        else if(id && !media_name) {
-            return await Media.findAll({
-                where: {
-                    id
-                },
-                order: [['id', 'DESC']]
-            });
-        }
-        else if(!id && media_name) {
-            return await Media.findAll({
-                where: {
-                    media_name: {
-                        [Op.substring]: media_name 
-                    },
-                    order: [['id', 'DESC']]
-                }
-            });
-        }
+        const params_where = {};
+        media_name && (params_where.media_name = media_name);
+        id && (params_where.id = id);
+        return await Media.findAll({
+            where: params_where,
+            order: [['id', 'DESC']]
+        });
     }
     static async getMediaList(user_id){
         return await Media.findAll({

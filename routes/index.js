@@ -26,6 +26,7 @@ router.post('/user/login',UserController.login)
  */
 router.post('/media/create',MediaController.create);
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
+router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
 //获取详情
 router.post('/media/info',MediaController.detail)
 //获取列表
@@ -35,7 +36,10 @@ router.post('/media/search',MediaController.search)
 /**
  * -----------------------------------广告接口-----------------------------------------------------------------
  */
-router.post('/advertising/create',AdvertisingPositionController.create);
+router.post('/adposition/create',AdvertisingPositionController.create);
 router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.create);
-
+//获取列表
+router.get('/adposition/list',AdvertisingPositionController.list)
+router.get('/adposition/listAll',AdvertisingPositionController.listAll)
+router.post('/adposition/search',AdvertisingPositionController.search)
 module.exports = router

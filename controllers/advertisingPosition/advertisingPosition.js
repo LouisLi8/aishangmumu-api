@@ -17,7 +17,7 @@ class MediaController {
         if(userInfo){
             try{
                 //创建媒体模型
-                req.user_id = userInfo.id;
+                req.id = userInfo.id;
                 const data = await AdvertisingModel.create(req);
                 OK(ctx, 200, '创建成功！', data);
             }catch(err){

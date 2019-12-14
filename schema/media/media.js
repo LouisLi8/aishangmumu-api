@@ -37,21 +37,19 @@ module.exports = function(sequelize,DataTypes){
         },
         // 
         name_of_public_address:{
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING,
             allowNull: true,
             field: 'name_of_public_address'
         },
         // 
         type_of_public_address:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             field: 'type_of_public_address'
         },
         // 
         main_body_of_public_adress:{
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            field: 'main_body_of_public_adress'
+            type: DataTypes.STRING
         },
         // 
         website_domain_name:{
