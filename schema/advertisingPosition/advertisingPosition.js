@@ -7,10 +7,13 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             autoIncrement: true
         },
+        // 绑定的用户
+        user_id:{
+            type: DataTypes.INTEGER
+        },
         // 绑定的媒体
         media_id:{
-            type: DataTypes.INTEGER,
-            allowNull: true
+            type: DataTypes.INTEGER
         },
         // 推啊编号
         number:{
@@ -18,38 +21,50 @@ module.exports = function(sequelize,DataTypes){
         },
         // 绑定的媒体名称
         media_name:{
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
+        },
+        // 投放位置
+        delivery_position:{
+            type: DataTypes.STRING
         },
         // 广告位名称
         name:{
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         // 规格
         specifications:{
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
-        // 广告位投放类型
+        // 投放类型
         delivery_type:{
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
+        },
+        // 投放类型
+        material_type:{
+            type: DataTypes.STRING
+        },
+        // 支持gif
+        support_gif: {
+            type: DataTypes.BOOLEAN
+        },
+        // 支持gif
+        support_video: {
+            type: DataTypes.BOOLEAN
         },
         // 开启状态
         status:{
-            type: DataTypes.INTEGER,
-            allowNull: true
+            type: DataTypes.INTEGER
+        },
+        status_name: {
+            type: DataTypes.STRING
         },
         // 开启状态
         links:{
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         // 开启状态
         links_photo:{
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         // 创建时间
         createdAt:{

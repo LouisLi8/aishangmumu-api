@@ -1,6 +1,8 @@
 const router = require('koa-router')({
   prefix: '/api/v1'
 });
+// 上传
+const uploadController = require('../controllers/upload')
 // 用户
 const UserController = require('../controllers/user');
 // 媒体
@@ -9,6 +11,11 @@ const MediaRevenueAssembleController = require('../controllers/media/mediaRevenu
 // 广告
 const AdvertisingPositionController = require('../controllers/advertisingPosition/advertisingPosition');
 const AdvertisingPositionAssembleController = require('../controllers/advertisingPosition/advertisingPositionAssemble');
+/**
+ * --------------------------------------------上传接口------------------------------------------------------
+ */
+router.post('/image/upload',uploadController.upload);
+
 /**
  * --------------------------------------------用户接口------------------------------------------------------
  */
@@ -38,6 +45,7 @@ router.post('/media/search',MediaController.search)
  */
 router.post('/adposition/create',AdvertisingPositionController.create);
 router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.create);
+router.post('/advertisingAssemble/list',AdvertisingPositionAssembleController.list);
 //获取列表
 router.get('/adposition/list',AdvertisingPositionController.list)
 router.get('/adposition/listAll',AdvertisingPositionController.listAll)

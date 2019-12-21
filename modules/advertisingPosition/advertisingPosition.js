@@ -69,10 +69,10 @@ class AdvertisingModel {
             });
         }
     }
-    static async getMediaList(id){
+    static async getList(user_id){
         return await AdvertisingPosition.findAll({
             where: {
-                id
+                user_id
             }
         });
     }

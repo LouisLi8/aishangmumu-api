@@ -3,11 +3,10 @@ const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
-// const bodyparser = require('koa-bodyparser')
+const KoaStatic = require('koa-static');
+const path = require('path');
 const koaBody = require('koa-body');
-
 const logger = require('koa-logger')
-
 const index = require('./routes/index')
 
 // error handler
@@ -19,18 +18,18 @@ app.use(koaBody({
   multipart:true, // 支持文件上传
   // encoding:'gzip',
   formidable:{
-    uploadDir:'./public/upload/', // 设置文件上传目录
+    // uploadDir:'./public/upload/', // 设置文件上传目录
     keepExtensions: true,    // 保持文件的后缀
     maxFieldsSize: 5 * 1024 * 1024, // 文件上传大小
     onFileBegin:(name,file) => { // 文件上传前的设置
-      console.log(`name: ${name}`);
-      console.log(file);
+      // console.log(`name: ${name}`);
+      // console.log(file);
     },
   }
 }));
+
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
@@ -64,18 +63,23 @@ app.use(async (ctx, next) => {
       await next()
     }
     else {
-      ctx.body = {
-          code: 401,
-          msg: '未授权的用户行为，请重新登录',
-          data: null
-      }
+      await next()
+      // ctx.body = {
+      //     code: 401,
+      //     msg: '未授权的用户行为，请重新登录',
+      //     data: null
+      // }
     }
   }
 })
 
 // routes
+// 配置静态资源
+const staticPath = './static'
+app.use(KoaStatic(
+    path.join( __dirname, staticPath)
+))
 app.use(index.routes(), index.allowedMethods())
-
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

@@ -11,13 +11,14 @@ class MediaController {
     static async create(ctx){
         //接收客户端
         let headers = ctx.request.headers;
+        // let file = ctx.request.files.file;
         let req = ctx.request.body;
         const userInfo = await UserModel.getUserDetailByToken(headers.token);
-        // OK(ctx, 200, '媒体创建成功！', userInfo); return
+        // OK(ctx, 200, '创建成功！', userInfo); return
         if(userInfo){
             try{
-                //创建媒体模型
-                req.id = userInfo.id;
+                //创建模型
+                req.user_id = userInfo.id;
                 const data = await AdvertisingModel.create(req);
                 OK(ctx, 200, '创建成功！', data);
             }catch(err){
@@ -75,7 +76,7 @@ class MediaController {
         if(userInfo) {
             try{
                 // 查询媒体详情模型
-                let data = await AdvertisingModel.getMediaList(userInfo.id);
+                let data = await AdvertisingModel.getList(userInfo.id);
                 OK(ctx, 200, '查询成功', data);
             }catch(err){
                 OK(ctx, 300, '查询失败', err);
