@@ -53,6 +53,17 @@ class UserModel {
         // const total_size = await students.count();//表总记录数
         return await User.findAll()
     }
+    static async updateAgentInfo(data){
+        return await User.update({
+            agent_adress: data.agent_adress,
+            agent_tel: data.agent_tel,
+            agent_consignee: data.agent_consignee,
+        },{
+            where: {
+                id: data.id
+            }
+        })
+    }
 }
 
 module.exports = UserModel;

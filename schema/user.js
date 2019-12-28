@@ -66,6 +66,18 @@ module.exports = function(sequelize,DataTypes){
             type: DataTypes.STRING,
             allowNull: true
         },
+        // 合同地址
+        agent_adress:{
+            type: DataTypes.STRING
+        },
+        // 合同 联系方式
+        agent_tel:{
+            type: DataTypes.STRING
+        },
+        // 合同 收件人
+        agent_consignee:{
+            type: DataTypes.STRING
+        },
         // 创建时间
         createdAt:{
             type: DataTypes.DATE

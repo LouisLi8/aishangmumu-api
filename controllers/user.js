@@ -64,6 +64,37 @@ class userController {
             OK(ctx, 300, 'email或id必传！', ctx);
         }
     }
+    // 更新用户合同信息
+    static async updateAgentInfo(ctx){
+        let agent_adress = ctx.request.body.agent_adress;
+        let agent_tel = ctx.request.body.agent_tel;
+        let agent_consignee = ctx.request.body.agent_consignee;
+        const token = ctx.request.header.token;
+        if(agent_adress || agent_tel || agent_consignee) {
+            try{
+                // 查询用户详情模型
+                // 查询用户详情模型
+                let userInfo = await UserModel.getUserDetailByToken(token);
+                if(userInfo) {
+                    let params = {
+                        id: userInfo.id,
+                        agent_adress,
+                        agent_tel,
+                        agent_consignee
+                    };
+                    let data = await UserModel.updateAgentInfo(params);
+                    OK(ctx, 200, '查询成功', data);
+                }
+                else {
+                    OK(ctx, 401, '用户信息已经失效,请重新登录', data);
+                }
+            }catch(err){
+                OK(ctx, 300, '查询失败', err);
+            }
+        } else {
+            OK(ctx, 300, '地址、联系方式和收件人信息不能为空！', ctx);
+        }
+    }
     static async getInfoByToken(ctx){
         const token = ctx.request.header.token;
         if(token) {

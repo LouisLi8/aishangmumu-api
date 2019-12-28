@@ -28,6 +28,8 @@ router.post('/user/info',UserController.info)
 router.get('/user/list',UserController.list)
 //登录
 router.post('/user/login',UserController.login)
+// 修改合同信息
+router.post('/user/updateAgentInfo',UserController.updateAgentInfo)
 /**
  * -----------------------------------------媒体接口---------------------------------------------------------
  */
