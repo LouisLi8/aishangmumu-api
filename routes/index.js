@@ -34,6 +34,7 @@ router.post('/user/updateAgentInfo',UserController.updateAgentInfo)
  * -----------------------------------------媒体接口---------------------------------------------------------
  */
 router.post('/media/create',MediaController.create);
+router.post('/media/updateStatus',MediaController.updateStatus);
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
 router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
 //获取详情

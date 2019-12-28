@@ -16,32 +16,20 @@ class MediaModel {
      * @returns {Promise<*>}
      */
     static async create(data){
-        data.status = 0;
-        data.status_name = '待验证';
+        data.status = data.status ? data.status : 0;
+        data.status_name = data.status_name ? data.status_name : '待验证';
         return await Media.upsert(data)
-        // return await Media.findOrCreate({
-        //     where: {id: data.id},
-        //     defaults: {
-        //         'media_name': data.media_name,
-        //         'preference_industry_id': data.preference_industry_id,
-        //         'support_download_ads': data.support_download_ads,
-        //         'website_domain_name': data.website_domain_name,
-        //         'media_keyword': data.media_keyword,
-        //         'name_of_public_address': data.name_of_public_address,
-        //         'type_of_public_address': data.type_of_public_address,
-        //         'main_body_of_public_adress': data.main_body_of_public_adress,
-        //         'media_type': data.media_type,
-        //         'description': data.description,
-        //         'status': data.status,
-        //         'status_name': data.status_name,
-        //     }
-        // })
-        // .spread((res, created) => {
-        //     if(created === false) {
-        //         return  Media.update(data)
-        //     }
-        //     return res;
-        // })
+    }
+    static async updateStatus(data){
+        return await Media.update({
+            status: data.status,
+            status_name: data.status_name,
+            rejection_reason: data.rejection_reason
+        },{
+            where: {
+                id: data.id
+            }
+        })
     }
 
     /**
