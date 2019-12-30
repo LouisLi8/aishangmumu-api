@@ -5,6 +5,8 @@ const router = require('koa-router')({
 const uploadController = require('../controllers/upload')
 // 用户
 const UserController = require('../controllers/user');
+// 财务
+const FinanceController = require('../controllers/finance');
 // 媒体
 const MediaController = require('../controllers/media/media');
 const MediaRevenueAssembleController = require('../controllers/media/mediaRevenueAssemble');
@@ -30,6 +32,21 @@ router.get('/user/list',UserController.list)
 router.post('/user/login',UserController.login)
 // 修改合同信息
 router.post('/user/updateAgentInfo',UserController.updateAgentInfo)
+/**
+ * --------------------------------------------财务接口------------------------------------------------------
+ */
+//创建用户
+router.post('/finance/create',FinanceController.create);
+router.get('/finance/info',FinanceController.info);
+// //获取详情
+// router.get('/user/info',UserController.getInfoByToken)
+// router.post('/user/info',UserController.info)
+// //获取列表
+// router.get('/user/list',UserController.list)
+// //登录
+// router.post('/user/login',UserController.login)
+// // 修改合同信息
+// router.post('/user/updateAgentInfo',UserController.updateAgentInfo)
 /**
  * -----------------------------------------媒体接口---------------------------------------------------------
  */
