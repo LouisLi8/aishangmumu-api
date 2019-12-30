@@ -11,10 +11,8 @@ class MediaController {
     static async create(ctx){
         //接收客户端
         let headers = ctx.request.headers;
-        // let file = ctx.request.files.file;
         let req = ctx.request.body;
         const userInfo = await UserModel.getUserDetailByToken(headers.token);
-        // OK(ctx, 200, '创建成功！', userInfo); return
         if(userInfo){
             try{
                 //创建模型
@@ -28,7 +26,6 @@ class MediaController {
             OK(ctx, 401, '信息已过期，请重新登录！', req);
         }
     }
-
     /**
      * 获取媒体详情
      * @param ctx

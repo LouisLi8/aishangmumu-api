@@ -5,7 +5,7 @@ const db = require('../config/db');
 const Sequelize = db.sequelize;
 const {guid} =  require("../utils/common");
 // 引入数据表模型
-const User = Sequelize.import('../schema/User');
+const User = Sequelize.import('../schema/user');
 User.sync({force: false}); //自动创建表
 
 class UserModel {

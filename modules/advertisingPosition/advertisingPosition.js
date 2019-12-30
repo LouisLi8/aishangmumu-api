@@ -19,14 +19,17 @@ class AdvertisingModel {
         data.status = 0;
         data.status_name = '待验证';
         return await AdvertisingPosition.upsert(data)
-        // return await AdvertisingPosition.create({
-        //     media_id: data.media_id,
-        //     media_name: data.media_name,
-        //     name: data.name,
-        //     specifications: data.specifications,
-        //     delivery_type: data.delivery_type,
-        //     status: 0, // 关闭
-        // });
+    }
+    static async updateStatus(data){
+        return await AdvertisingPosition.update({
+            status: data.status,
+            status_name: data.status_name,
+            rejection_reason: data.rejection_reason
+        },{
+            where: {
+                id: data.id
+            }
+        })
     }
 
     /**

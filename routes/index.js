@@ -51,6 +51,7 @@ router.get('/finance/info',FinanceController.info);
  * -----------------------------------------媒体接口---------------------------------------------------------
  */
 router.post('/media/create',MediaController.create);
+router.post('/media/updateStatus',MediaController.updateStatus);
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
 router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
 //获取详情
