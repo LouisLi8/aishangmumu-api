@@ -73,9 +73,7 @@ app.use(async (ctx, next) => {
   }
 })
 
-// routes
-// 配置静态资源
-// const staticPath = '/public'
+// 配置静态资源 访问
 app.use(KoaStatic(
     path.join( __dirname)
 ))
