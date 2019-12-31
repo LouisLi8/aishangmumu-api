@@ -75,9 +75,9 @@ app.use(async (ctx, next) => {
 
 // routes
 // 配置静态资源
-const staticPath = './static'
+// const staticPath = '/public'
 app.use(KoaStatic(
-    path.join( __dirname, staticPath)
+    path.join( __dirname)
 ))
 app.use(index.routes(), index.allowedMethods())
 // error-handling

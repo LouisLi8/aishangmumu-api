@@ -16,20 +16,16 @@ class FinanceController {
             try{
                 // 查询用户详情模型
                 let user = await UserModel.getUserDetailByToken(token);
-                if(data) {
+                if(user) {
                     req.user_id = user.id;
                     const ret = await FinanceModel.create(req);
-                    if(data) {
-                        OK(ctx, 200, '用户创建成功！', data);
-                       } else {
-                        OK(ctx, 300, '用户创建失败，请稍后重试！', null);
-                       }
+                    OK(ctx, 200, '创建成功！', ret);
                 }
                 else {
-                   OK(ctx, 300, '用户信息过期', err);
+                   OK(ctx, 300, '信息过期', err);
                 }
             }catch(err){
-                OK(ctx, 300, '用户创建失败，请稍后重试', err);
+                OK(ctx, 300, '创建失败，请稍后重试', err);
             }
         }else {
             OK(ctx, 300, '参数不齐全！', req);
@@ -44,7 +40,7 @@ class FinanceController {
             OK(ctx, 200, '查询成功！', ret);
         }
         else {
-            OK(ctx, 300, '用户信息过期', err);
+            OK(ctx, 401, '用户信息过期', null);
         }
     }
 }
