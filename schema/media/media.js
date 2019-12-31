@@ -5,7 +5,7 @@ module.exports = function(sequelize,DataTypes){
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: true,
-            autoIncrement: true
+            autoIncrement: 1100
         },
         // 绑定的用户
         user_id:{
