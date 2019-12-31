@@ -1,7 +1,7 @@
 const { OK } = require('../utils/package');
 const fs = require('fs');
 const path = require('path');
-const uploadUrl = "http://localhost:3000";
+const uploadUrl = "http://api.jmaogou.com";
 class uploadController {
   static async upload(ctx) {
     const file = ctx.request.files.file;
