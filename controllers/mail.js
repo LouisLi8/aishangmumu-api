@@ -31,10 +31,10 @@ class MailController {
         // 配置参数
         const conf = {
             get user() {
-                return '963097377@qq.com'
+                return '714626676@qq.com'
             },
-            get pass() { // smtp授权码，自行替换
-                return 'azfrzyervgzlbeci'
+            get pass() { // smtp授权码 ，自行替换
+                return 'cugwvetuomwxbdfi'
             },
             get code() { // 验证码
                 return () => {
@@ -49,21 +49,34 @@ class MailController {
         }
 
         const transportOptions = {
-        service: 'QQ', // no need to set host or port etc. 更多邮箱支持 https://nodemailer.com/smtp/well-known/
-        auth: {
-            user: conf.user, // 发件邮箱
-            pass: conf.pass // smtp授权码
-        }
+            service: 'QQ', // no need to set host or port etc. 更多邮箱支持 https://nodemailer.com/smtp/well-known/
+            
+            // host: "smtpdm.aliyun.com",
+            port: 25,
+            //"secureConnection": true, // use SSL, the port is 465
+            auth: {
+                user: conf.user, // 发件邮箱
+                pass: conf.pass // smtp授权码
+            }
         }
 
         let code
 
         // 邮件模版
         const sendMailOptions = {
-            from: `"认证邮件"<${conf.user}>`, // 发件人
+            from: `"system"<${conf.user}>`, // 发件人
             to: email, // 收件人
-            subject: '注册验证', // 邮件主题
-            html: `<h3>欢迎使用爱尚盟卡，您本次的验证码是${code = conf.code()}，一分钟之内有效</h3>` // 邮件内容
+            subject: '爱尚盟卡媒体账号邮箱验证', // 邮件主题
+            html: `
+            <h3>尊敬的 ${username}:</h3>
+            <p>欢迎您使用爱尚盟卡媒体平台（http://asmumu.jmaogou.com/）。</p>
+            <p>您的登录邮箱是 ${email}。请使用以下验证码验证邮箱有效性，验证成功可以加速账户资质审核。 </p>
+            <p>验证码: ${code = conf.code()}</p>
+            <p>该验证码在48小时内有效，48小时后需要重新发送验证邮箱</p>
+            <p>此为系统邮件，请勿回复</p>
+            <p>一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一</p>
+            <p>爱尚盟卡媒体平台</p>
+            ` // 邮件内容
         }
 
         // create reusable transporter 
