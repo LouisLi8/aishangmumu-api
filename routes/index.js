@@ -5,6 +5,8 @@ const router = require('koa-router')({
 const uploadController = require('../controllers/upload')
 // 用户
 const UserController = require('../controllers/user');
+// 邮箱
+const MailController = require('../controllers/mail');
 // 财务
 const FinanceController = require('../controllers/finance');
 // 媒体
@@ -17,6 +19,10 @@ const AdvertisingPositionAssembleController = require('../controllers/advertisin
  * --------------------------------------------上传接口------------------------------------------------------
  */
 router.post('/image/upload',uploadController.upload);
+/**
+ * --------------------------------------------邮箱接口------------------------------------------------------
+ */
+router.post('/mail/send',MailController.send);
 
 /**
  * --------------------------------------------用户接口------------------------------------------------------
