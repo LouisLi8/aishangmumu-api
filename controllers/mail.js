@@ -18,7 +18,7 @@ class MailController {
         const { username, email } = ctx.request.body
         // 请求到期时间
         const expire = await store.hget(`nodemail:${username}`, 'expire')
-
+        // OK(ctx, 200, '验证码发送成功', await store.hget(`nodemail:${username}`, 'expire')); return
         // 频率--1分钟内1次
         if (expire && (+new Date() - expire < 0)) {
             ctx.body = {

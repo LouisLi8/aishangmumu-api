@@ -55,7 +55,12 @@ class MediaRevenueAssembleController {
     static async list(ctx){
         let headers = ctx.request.headers;
         const userInfo = await UserModel.getUserDetailByToken(headers.token);
-        const data = await AdvertisingPositionAssembleModel.list(userInfo.id);
+        if(userInfo){
+            const data = await AdvertisingPositionAssembleModel.list(userInfo.id);
+            OK(ctx, 200, '广告位收益数据查询成功！', data);
+        } else {
+            OK(ctx, 401, '信息已过期，请重新登录！', req);
+        }
         OK(ctx, 200, '广告位收益数据查询成功！', data);
     }
     static async search(ctx){
