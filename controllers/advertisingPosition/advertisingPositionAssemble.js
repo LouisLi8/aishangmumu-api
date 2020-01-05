@@ -61,7 +61,6 @@ class MediaRevenueAssembleController {
         } else {
             OK(ctx, 401, '信息已过期，请重新登录！', null);
         }
-        OK(ctx, 200, '广告位收益数据查询成功！', data);
     }
     static async search(ctx){
         let id = ctx.request.body.id || "";
