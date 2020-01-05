@@ -49,7 +49,7 @@ class MediaRevenueAssembleController {
                 OK(ctx, 300, '媒体收益数据导入失败，请稍后重试', err);
             }
         }else {
-            OK(ctx, 401, '信息已过期，请重新登录！', req);
+            OK(ctx, 401, '信息已过期，请重新登录！', null);
         }
     }
     static async list(ctx){
@@ -59,7 +59,7 @@ class MediaRevenueAssembleController {
             const data = await MediaRevenueAssembleModel.list(userInfo.id);
             OK(ctx, 200, '媒体收益数据查询成功！', data);
         } else {
-            OK(ctx, 401, '信息已过期，请重新登录！', req);
+            OK(ctx, 401, '信息已过期，请重新登录！', null);
         }
     }
     static async search(ctx){

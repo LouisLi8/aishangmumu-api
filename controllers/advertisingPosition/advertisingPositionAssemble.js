@@ -59,7 +59,7 @@ class MediaRevenueAssembleController {
             const data = await AdvertisingPositionAssembleModel.list(userInfo.id);
             OK(ctx, 200, '广告位收益数据查询成功！', data);
         } else {
-            OK(ctx, 401, '信息已过期，请重新登录！', req);
+            OK(ctx, 401, '信息已过期，请重新登录！', null);
         }
         OK(ctx, 200, '广告位收益数据查询成功！', data);
     }
