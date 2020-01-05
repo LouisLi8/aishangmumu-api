@@ -41,6 +41,7 @@ app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Headers', '*');
   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   ctx.set('Cache-Control', 'no-cache');
+  ctx.set('Access-Control-Allow-Credentials', 'true'); 
   ctx.set('Content-Type', 'application/json');
   await next();
 })
