@@ -5,6 +5,7 @@ const router = require('koa-router')({
 const uploadController = require('../controllers/upload')
 // 用户
 const UserController = require('../controllers/user');
+const RevenueController = require('../controllers/revenue');
 // 邮箱
 const MailController = require('../controllers/mail');
 // 财务
@@ -29,6 +30,13 @@ router.post('/mail/send',MailController.send);
  */
 //创建用户
 router.post('/user/create',UserController.create);
+// 用户收益
+router.post('/user/revenue/create',RevenueController.create);
+router.post('/user/revenue/listAll',RevenueController.listAll);
+//创建用户
+router.post('/user/search',UserController.search);
+// 修改密码
+router.post('/user/resetPassword',UserController.resetPassword);
 //获取详情
 router.get('/user/info',UserController.getInfoByToken)
 router.post('/user/info',UserController.info)
@@ -58,8 +66,10 @@ router.get('/finance/info',FinanceController.info);
  */
 router.post('/media/create',MediaController.create);
 router.post('/media/updateStatus',MediaController.updateStatus);
+router.post('/media/updateNumber',MediaController.updateNumber);
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
 router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
+router.post('/mediaRevenueAssemble/search',MediaRevenueAssembleController.search);
 //获取详情
 router.post('/media/info',MediaController.detail)
 //获取列表
@@ -70,8 +80,10 @@ router.post('/media/search',MediaController.search)
  * -----------------------------------广告接口-----------------------------------------------------------------
  */
 router.post('/adposition/create',AdvertisingPositionController.create);
+router.post('/adposition/updateStatus',AdvertisingPositionController.updateStatus);
 router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.create);
 router.post('/advertisingAssemble/list',AdvertisingPositionAssembleController.list);
+router.post('/advertisingAssemble/search',AdvertisingPositionAssembleController.search);
 //获取列表
 router.get('/adposition/list',AdvertisingPositionController.list)
 router.get('/adposition/listAll',AdvertisingPositionController.listAll)

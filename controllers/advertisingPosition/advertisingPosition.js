@@ -26,6 +26,22 @@ class MediaController {
             OK(ctx, 401, '信息已过期，请重新登录！', req);
         }
     }
+    static async updateStatus(ctx){
+        //接收客户端
+        let headers = ctx.request.headers;
+        let req = ctx.request.body;
+        const userInfo = await UserModel.getUserDetailByToken(headers.token);
+        if(userInfo){
+            try{
+                const data = await AdvertisingModel.updateStatus(req);
+                OK(ctx, 200, '广告更新成功！', data);
+            }catch(err){
+                OK(ctx, 300, '广告更新失败，请稍后重试', await MediaModel.updateStatus(req));
+            }
+        }else {
+            OK(ctx, 401, '信息已过期，请重新登录！', req);
+        }
+    }
     /**
      * 获取媒体详情
      * @param ctx
@@ -48,11 +64,11 @@ class MediaController {
     }
     static async search(ctx){
         let id = ctx.request.body.id || "";
-        let media_name = ctx.request.body.media_name || '';
-        if(id || media_name){
+        let name = ctx.request.body.name || '';
+        if(id || name){
             try{
                 // 查询媒体详情模型
-                let data = await AdvertisingModel.getMediaListAllByNameOrId(id, media_name);
+                let data = await AdvertisingModel.getMediaListAllByNameOrId(id, name);
                 OK(ctx, 200, '查询成功', data);
             }catch(err){
                 OK(ctx, 300, '查询失败', err);

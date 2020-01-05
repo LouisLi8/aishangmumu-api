@@ -58,6 +58,11 @@ class MediaRevenueAssembleController {
         const data = await MediaRevenueAssembleModel.list(userInfo.id);
         OK(ctx, 200, '媒体收益数据查询成功！', data);
     }
+    static async search(ctx){
+        let id = ctx.request.body.id || "";
+        const data = await MediaRevenueAssembleModel.search(id);
+        OK(ctx, 200, '媒体收益数据查询成功！', data);
+    }
 
 }
 

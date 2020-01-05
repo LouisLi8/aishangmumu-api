@@ -58,6 +58,14 @@ module.exports = function(sequelize,DataTypes){
         status_name: {
             type: DataTypes.STRING
         },
+        // 媒体描述
+        description:{
+            type: DataTypes.STRING
+        },
+        // 拒绝理由
+        rejection_reason:{
+            type: DataTypes.STRING
+        },
         // 开启状态
         links:{
             type: DataTypes.STRING

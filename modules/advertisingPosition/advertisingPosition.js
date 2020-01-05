@@ -48,29 +48,14 @@ class AdvertisingModel {
     static async getMediaListAll(){
         return await AdvertisingPosition.findAll();
     }
-    static async getMediaListAllByNameOrId(id,media_name){
-        if(id && media_name) {
-            return await Sequelize.query(`
-                SELECT * FROM media where id = ${id} and media_name LIKE '%${media_name}%'
-            `);
-        }
-        else if(id && !media_name) {
-            return await Media.findAll({
-                where: {
-                    id
-                }
-            });
-        }
-        else if(!id && media_name) {
-            return await Media.findAll({
-                where: {
-                    media_name: {
-                        [Op.substring]: media_name 
-                    }
-                    // media_name: `%${media_name}%`
-                }
-            });
-        }
+    static async getMediaListAllByNameOrId(id,name){
+        const params_where = {};
+        name && (params_where.name = name);
+        id && (params_where.id = id);
+        return await AdvertisingPosition.findAll({
+            where: params_where,
+            order: [['id', 'DESC']]
+        });
     }
     static async getList(user_id){
         return await AdvertisingPosition.findAll({

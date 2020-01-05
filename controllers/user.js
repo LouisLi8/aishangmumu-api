@@ -1,7 +1,9 @@
 
 const {OK} = require('../utils/package');
 const UserModel = require('../modules/user');
-
+// redis数据库
+const redis = require('koa-redis')
+const store = redis().client
 class userController {
     /**
      * 创建用户
@@ -25,7 +27,7 @@ class userController {
                     //使用刚刚创建的用户ID查询文章详情，且返回用户详情信息
                     const data = await UserModel.getUserDetail({email:ret.email});
                    if(data) {
-                    OK(ctx, 200, '用户创建成功！', data);
+                    OK(ctx, 200, '成功！', true);
                    } else {
                     OK(ctx, 300, '用户创建失败，请稍后重试！', null);
                    }
@@ -123,7 +125,7 @@ class userController {
         const req = ctx.request.body;
         // OK(ctx, 200, '查询成功', ctx);return
         req.page = req.page || 1;
-        req.size = req.size || 2;
+        req.size = req.size || 10;
         try{
             // 查询用户详情模型
             let data = await UserModel.getUserList(req);
@@ -135,7 +137,23 @@ class userController {
             }
             
         }catch(err){
-            OK(ctx, 300, '查询失败', err);
+            OK(ctx, 300, '查询失败', await UserModel.getUserList(req));
+        }
+    }
+    static async search(ctx){
+        const email = ctx.request.body.email;
+        try{
+            // 查询用户详情模型
+            let data = await UserModel.getUserListByEmail(email);
+            if(data) {
+                OK(ctx, 200, '查询成功', data);
+            }
+            else {
+                OK(ctx, 300, '未询到数据', data);
+            }
+            
+        }catch(err){
+            OK(ctx, 300, '查询失败', await UserModel.getUserListByEmail(email));
         }
     }
     /**
@@ -161,6 +179,33 @@ class userController {
                }
             }catch(err){
                 OK(ctx, 300 ,'登录失败', err)
+            }
+        }else {
+            OK(ctx, 300 ,'参数不齐全', null)
+        }
+    }
+    static async resetPassword(ctx){
+        let req = ctx.request.body;
+        if(req.old_pass && req.password && req.confirm_password){
+            //接收客户端
+            const token = ctx.request.header.token;
+            const { old_pass, password, confirm_password } = ctx.request.body
+            // 查询用户详情模型
+            let data = await UserModel.getUserDetailByToken(token);
+            if(data) {
+                if(old_pass === data.password){
+                    if(password !== confirm_password) {
+                        OK(ctx, 300 ,'两次密码不一致', null)
+                    } else {
+                        const res = await UserModel.updatePassword({password, id: data.id});
+                        OK(ctx, 200, '查询成功', res);
+                    }
+                }else{
+                    OK(ctx, 300 ,'原密码输入错误', null)
+                }
+            }
+            else {
+                OK(ctx, 401, '用户信息已经失效,请重新登录', data);
             }
         }else {
             OK(ctx, 300 ,'参数不齐全', null)

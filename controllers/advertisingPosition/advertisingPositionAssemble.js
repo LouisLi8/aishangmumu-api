@@ -56,7 +56,12 @@ class MediaRevenueAssembleController {
         let headers = ctx.request.headers;
         const userInfo = await UserModel.getUserDetailByToken(headers.token);
         const data = await AdvertisingPositionAssembleModel.list(userInfo.id);
-        OK(ctx, 200, '媒体收益数据查询成功！', data);
+        OK(ctx, 200, '广告位收益数据查询成功！', data);
+    }
+    static async search(ctx){
+        let id = ctx.request.body.id || "";
+        const data = await AdvertisingPositionAssembleModel.search(id);
+        OK(ctx, 200, '广告位收益数据查询成功！', data);
     }
 }
 

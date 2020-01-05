@@ -21,10 +21,10 @@ class MailController {
 
         // 频率--1分钟内1次
         if (expire && (+new Date() - expire < 0)) {
-        ctx.body = {
-            code: -1,
-            msg: '验证请求过于频繁，1分钟内1次'
-        }
+            ctx.body = {
+                code: -1,
+                msg: '验证请求过于频繁，1分钟内1次'
+            }
             return
         }
 
@@ -38,12 +38,12 @@ class MailController {
             },
             get code() { // 验证码
                 return () => {
-                return Math.random().toString(16).slice(2, 6).toUpperCase()
+                    return Math.random().toString(16).slice(2, 6).toUpperCase()
                 }
             },
             get expire() { // 到期时间
                 return () => {
-                return +new Date() + 60 * 1000
+                    return +new Date() + 60 * 1000
                 }
             }
         }

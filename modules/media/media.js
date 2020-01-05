@@ -31,6 +31,15 @@ class MediaModel {
             }
         })
     }
+    static async updateNumber(data){
+        return await Media.update({
+            number: data.number
+        },{
+            where: {
+                id: data.id
+            }
+        })
+    }
 
     /**
      * 查询文章的详情

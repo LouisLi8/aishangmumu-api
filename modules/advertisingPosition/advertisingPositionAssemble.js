@@ -5,10 +5,10 @@ const Sequelize = db.sequelize;
 const Op = Sequelize.Op
 
 // 引入数据表模型
-const mediaRevenueAssemble = Sequelize.import('../../schema/advertisingPosition/advertisingPositionAssemble');
-mediaRevenueAssemble.sync({force: false}); //自动创建表
+const adRevenueAssemble = Sequelize.import('../../schema/advertisingPosition/advertisingPositionAssemble');
+adRevenueAssemble.sync({force: false}); //自动创建表
 
-class MediaRevenueAssembleModel {
+class AdRevenueAssembleModel {
     /**
      * 创建媒体模型
      * @param data
@@ -16,7 +16,7 @@ class MediaRevenueAssembleModel {
      */
     static async update(data){
         // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
-        return await mediaRevenueAssemble.bulkCreate(data, {updateOnDuplicate: 
+        return await adRevenueAssemble.bulkCreate(data, {updateOnDuplicate: 
             [
                 'time',
                 'ad_access_pv',
@@ -32,13 +32,22 @@ class MediaRevenueAssembleModel {
     }
     static async list(id){
         // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
-        return await mediaRevenueAssemble.findAll({
+        return await adRevenueAssemble.findAll({
             where:{
                 user_id: id
             },
             order: [["id", "DESC"]]
         });
     }
+    static async search(id){
+        // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
+        return await adRevenueAssemble.findAll({
+            where:{
+                id
+            },
+            order: [["id", "DESC"]]
+        });
+    }
 }
 
-module.exports = MediaRevenueAssembleModel;
+module.exports = AdRevenueAssembleModel;

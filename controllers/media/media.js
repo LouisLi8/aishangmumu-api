@@ -43,6 +43,22 @@ class MediaController {
             OK(ctx, 401, '信息已过期，请重新登录！', req);
         }
     }
+    static async updateNumber(ctx){
+        //接收客户端
+        let headers = ctx.request.headers;
+        let req = ctx.request.body;
+        const userInfo = await UserModel.getUserDetailByToken(headers.token);
+        if(userInfo){
+            try{
+                const data = await MediaModel.updateNumber(req);
+                OK(ctx, 200, '媒体更新成功！', data);
+            }catch(err){
+                OK(ctx, 300, '媒体更新失败，请稍后重试', await MediaModel.updateStatus(req));
+            }
+        }else {
+            OK(ctx, 401, '信息已过期，请重新登录！', req);
+        }
+    }
 
     /**
      * 获取媒体详情
