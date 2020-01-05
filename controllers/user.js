@@ -2,8 +2,8 @@
 const {OK} = require('../utils/package');
 const UserModel = require('../modules/user');
 // redis数据库
-const redis = require('koa-redis')
-const store = redis().client
+// const redis = require('koa-redis')
+// const store = redis().client
 class userController {
     /**
      * 创建用户
