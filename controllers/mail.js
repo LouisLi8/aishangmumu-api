@@ -16,7 +16,14 @@ class MailController {
     static async send(ctx){
         //接收客户端
         let req = ctx.request.body;
-        const { username, email } = ctx.request.body
+        const { email } = req
+        const userInfo = await UserModel.getUserDetail(email);
+        let username;
+        if(userInfo){
+            username = userInfo.real_name
+        } else {
+            username = req.username
+        }
         // 请求到期时间
         if(ctx.cookies.get(`expire:${username}`)){
             OK(ctx, 300, '验证请求过于频繁，1分钟内1次', null);return;

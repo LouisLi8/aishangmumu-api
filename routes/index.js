@@ -44,6 +44,7 @@ router.post('/user/revenue/listAll',RevenueController.listAll);
 router.post('/user/search',UserController.search);
 // 修改密码
 router.post('/user/resetPassword',UserController.resetPassword);
+router.post('/user/resetPasswordWithoutLogin',UserController.resetPasswordWithoutLogin);
 //获取详情
 router.get('/user/info',UserController.getInfoByToken)
 router.post('/user/info',UserController.info)

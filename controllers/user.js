@@ -203,10 +203,39 @@ class userController {
                         OK(ctx, 300 ,'两次密码不一致', null)
                     } else {
                         const res = await UserModel.updatePassword({password, id: data.id});
-                        OK(ctx, 200, '查询成功', res);
+                        OK(ctx, 200, '密码修改成功', res);
                     }
                 }else{
                     OK(ctx, 300 ,'原密码输入错误', null)
+                }
+            }
+            else {
+                OK(ctx, 401, '用户信息已经失效,请重新登录', data);
+            }
+        }else {
+            OK(ctx, 300 ,'参数不齐全', null)
+        }
+    }
+    static async resetPasswordWithoutLogin(ctx){
+        let req = ctx.request.body;
+        const {password, confirm_password, sms} = req;
+        if( password && confirm_password && sms){
+            //接收客户端
+            const token = ctx.request.header.token;
+            // 查询用户详情模型
+            let data = await UserModel.getUserDetailByToken(token);
+            if(data) {
+                if(password !== confirm_password) {
+                    OK(ctx, 300 ,'两次密码不一致', null)
+                } else {
+                    const sms_ = ctx.cookies.get(`nodemail:${data.real_name}`);
+                    if(sms === sms_) {
+                        delete(req.sms);
+                        const res = await UserModel.updatePassword({password, id: data.id});
+                        OK(ctx, 200, '密码修改成功', res);
+                    } else {
+                        OK(ctx, 300, '邮箱验证码错误或者失效！', null);
+                    }
                 }
             }
             else {
