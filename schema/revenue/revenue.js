@@ -9,27 +9,27 @@ module.exports = function(sequelize,DataTypes){
         },
         // 得分
         score:{
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DECIMAL(9,2),
         },
         // 累计收益
         revenue:{
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DECIMAL(9,2),
         },
         // 昨日收益
         last_days_revenue:{
-            type: DataTypes.DECIMAL
+            type: DataTypes.DECIMAL(9,2)
         },
         // 近7日收益
         last_seven_days_revenue:{
-            type: DataTypes.DECIMAL
+            type: DataTypes.DECIMAL(9,2)
         },
         // 月收益
         month_revenue:{
-            type: DataTypes.DECIMAL
+            type: DataTypes.DECIMAL(9,2)
         },
         // 余额
         balance:{
-            type: DataTypes.DECIMAL
+            type: DataTypes.DECIMAL(9,2)
         },
         // 提现申请
         status:{

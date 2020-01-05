@@ -3,6 +3,8 @@ const router = require('koa-router')({
 });
 // 上传
 const uploadController = require('../controllers/upload')
+// 上传
+const QcodeController = require('../controllers/qcode/qcode')
 // 用户
 const UserController = require('../controllers/user');
 const RevenueController = require('../controllers/revenue');
@@ -24,6 +26,11 @@ router.post('/image/upload',uploadController.upload);
  * --------------------------------------------邮箱接口------------------------------------------------------
  */
 router.post('/mail/send',MailController.send);
+/**
+ * --------------------------------------------二维码接口------------------------------------------------------
+ */
+router.post('/qcode/update',QcodeController.update);
+router.get('/qcode/info',QcodeController.info);
 
 /**
  * --------------------------------------------用户接口------------------------------------------------------
