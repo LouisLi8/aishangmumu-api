@@ -22,15 +22,20 @@ class userController {
                     OK(ctx, 300, '邮箱已经存在！', null);
                 }
                 else {
-                    const ret = await UserModel.create(req);
-                    // if(ret.)
-                    //使用刚刚创建的用户ID查询文章详情，且返回用户详情信息
-                    const data = await UserModel.getUserDetail({email:ret.email});
-                   if(data) {
-                    OK(ctx, 200, '成功！', true);
-                   } else {
-                    OK(ctx, 300, '用户创建失败，请稍后重试！', null);
-                   }
+                    const sms = ctx.cookies.get(`nodemail:${req.real_name}`);
+                    // OK(ctx, 300, '成功！', sms);return
+                    if(sms === req.sms) {
+                        delete(req.sms);
+                        const ret = await UserModel.create(req);
+                        const data = await UserModel.getUserDetail({email:ret.email});
+                        if(data) {
+                                OK(ctx, 200, '成功！', true);
+                        } else {
+                                OK(ctx, 300, '用户创建失败，请稍后重试！', null);
+                        }
+                    } else {
+                        OK(ctx, 300, '邮箱验证码错误或者失效！', null);
+                    }
                 }
             }catch(err){
                 OK(ctx, 300, '用户创建失败，请稍后重试', err);
