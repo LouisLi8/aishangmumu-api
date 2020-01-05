@@ -1,7 +1,7 @@
 
 const {OK} = require('../utils/package');
 const UserModel = require('../modules/user');
-const session = require('koa-session');
+// const session = require('koa-session');
 // const redis = require('koa-redis')
 // redis数据库
 // const store = redis().client
