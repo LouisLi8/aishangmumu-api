@@ -234,7 +234,7 @@ class userController {
                         const res = await UserModel.updatePassword({password, id: data.id});
                         OK(ctx, 200, '密码修改成功', res);
                     } else {
-                        OK(ctx, 300, '邮箱验证码错误或者失效！', sms_);
+                        OK(ctx, 300, '邮箱验证码错误或者失效！', null);
                     }
                 }
             }
