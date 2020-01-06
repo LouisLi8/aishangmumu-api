@@ -17,16 +17,13 @@ class userController {
             && req.real_name  && req.phone) {
             try{
                 //创建用户模型
-                const hasEmail = await UserModel.getUserDetail({email:req.email});
-                if(hasEmail) {
+                const data = await UserModel.getUserDetail({email:req.email});
+                if(data) {
                     OK(ctx, 300, '邮箱已经存在！', null);
                 }
                 else {
-                    // const sms = ctx.cookies.get(`nodemail:${req.real_name}`);
-                    // const sms = await store.hget(`nodemail:${username}`, 'code')
-                    const sms = await store.hget(`nodemail:${req.real_name}`, 'code')
-                    // OK(ctx, 300, '成功！', sms);return
-                    if(sms === req.sms) {
+                    const sms = await store.hget(`nodemail:${data.email}`, 'code')
+                    if(sms == req.sms) {
                         delete(req.sms);
                         const ret = await UserModel.create(req);
                         const data = await UserModel.getUserDetail({email:ret.email});
@@ -223,21 +220,19 @@ class userController {
         const {email , password, confirm_password, sms} = req;
         if( password && confirm_password && sms){
             //接收客户端
-            // const userInfo = await UserModel.getUserDetail({email:req.email});
             // 查询用户详情模型
             let data = await UserModel.getUserDetail({email});
             if(data) {
                 if(password !== confirm_password) {
                     OK(ctx, 300 ,'两次密码不一致', null)
                 } else {
-                    // const sms_ = ctx.cookies.get(`nodemail:${data.real_name}`);
-                    const sms_ = await store.hget(`nodemail:${data.real_name}`, 'code')
+                    const sms_ = await store.hget(`nodemail:${data.email}`, 'code')
                     if(sms === sms_) {
                         delete(req.sms);
                         const res = await UserModel.updatePassword({password, id: data.id});
                         OK(ctx, 200, '密码修改成功', res);
                     } else {
-                        OK(ctx, 300, '邮箱验证码错误或者失效！', {key: `nodemail:${data.real_name}`, sms: ''+ctx.cookies.get(`nodemail:${data.real_name}`)});
+                        OK(ctx, 300, '邮箱验证码错误或者失效！', null);
                     }
                 }
             }

@@ -29,7 +29,7 @@ class MailController {
         // if(ctx.cookies.get(`expire:${username}`)){
         //     OK(ctx, 300, '验证请求过于频繁，1分钟内1次', null);return;
         // }
-        const short = await store.hget(`nodemail:${username}`, 'short')
+        const short = await store.hget(`nodemail:${email}`, 'short')
         // OK(ctx, 200, '验证码发送成功', await store.hget(`nodemail:${username}`, 'short')); return
         // 频率--1分钟内1次
         if (short && (+new Date() - short < 0)) {
@@ -96,13 +96,11 @@ class MailController {
             let info = await transporter.sendMail(sendMailOptions)
             if (info) {
                 // 存储状态
-                await store.hmset(`nodemail:${username}`, 'code', code, 'expire', conf.expire(), 'short', 60 * 1000, 'email', email, 'storageTime', +new Date())
-                // ctx.cookies.set(`nodemail:${username}`, code, {maxAge: conf.expire()}); // 验证码48小时有效
-                // ctx.cookies.set(`expire:${username}`, 'expire', {maxAge: 60 * 1000}); // 一分钟之内发送一条
-                OK(ctx, 200, '验证码发送成功', {sms: await store.hmget(`nodemail:${username}`), key: `nodemail:${username}`});
+                await store.hmset(`nodemail:${email}`, 'code', code, 'expire', conf.expire(), 'short', 60 * 1000, 'email', email, 'storageTime', +new Date())
+                OK(ctx, 200, '验证码发送成功',  true);
             }
         } catch (error) {
-            OK(ctx, -1, '验证码发送失败，请重新尝试', {key: `nodemail:${username}`});
+            OK(ctx, -1, '验证码发送失败，请重新尝试', {key: `nodemail:${email}`});
         }
     }
 }
