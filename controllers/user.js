@@ -2,8 +2,8 @@
 const {OK} = require('../utils/package');
 const UserModel = require('../modules/user');
 // redis数据库
-// const redis = require('koa-redis')
-// const store = redis().client
+const redis = require('koa-redis')
+const store = redis().client
 class userController {
     /**
      * 创建用户
@@ -22,7 +22,8 @@ class userController {
                     OK(ctx, 300, '邮箱已经存在！', null);
                 }
                 else {
-                    const sms = ctx.cookies.get(`nodemail:${req.real_name}`);
+                    // const sms = ctx.cookies.get(`nodemail:${req.real_name}`);
+                    const sms = await store.hget(`nodemail:${username}`, 'code')
                     // OK(ctx, 300, '成功！', sms);return
                     if(sms === req.sms) {
                         delete(req.sms);
@@ -228,7 +229,8 @@ class userController {
                 if(password !== confirm_password) {
                     OK(ctx, 300 ,'两次密码不一致', null)
                 } else {
-                    const sms_ = ctx.cookies.get(`nodemail:${data.real_name}`);
+                    // const sms_ = ctx.cookies.get(`nodemail:${data.real_name}`);
+                    const sms = await store.hget(`nodemail:${username}`, 'code')
                     if(sms === sms_) {
                         delete(req.sms);
                         const res = await UserModel.updatePassword({password, id: data.id});

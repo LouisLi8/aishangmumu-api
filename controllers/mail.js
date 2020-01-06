@@ -3,8 +3,9 @@ const {OK} = require('../utils/package');
 const UserModel = require('../modules/user');
 // const session = require('koa-session');
 // const redis = require('koa-redis')
+const redis = require('koa-redis');
 // redis数据库
-// const store = redis().client
+const store = redis().client
 const nodeMailer = require('nodemailer')
 
 class MailController {
@@ -25,19 +26,16 @@ class MailController {
             username = req.username
         }
         // 请求到期时间
-        if(ctx.cookies.get(`expire:${username}`)){
-            OK(ctx, 300, '验证请求过于频繁，1分钟内1次', null);return;
-        }
-        // const expire = await store.hget(`nodemail:${username}`, 'expire')
+        // if(ctx.cookies.get(`expire:${username}`)){
+        //     OK(ctx, 300, '验证请求过于频繁，1分钟内1次', null);return;
+        // }
+        const expire = await store.hget(`nodemail:${username}`, 'expire')
         // OK(ctx, 200, '验证码发送成功', await store.hget(`nodemail:${username}`, 'expire')); return
         // 频率--1分钟内1次
-        // if (expire && (+new Date() - expire < 0)) {
-        //     ctx.body = {
-        //         code: -1,
-        //         msg: '验证请求过于频繁，1分钟内1次'
-        //     }
-        //     return
-        // }
+        if (expire && (+new Date() - expire < 0)) {
+            OK(ctx, 300, '验证请求过于频繁，1分钟内1次', null);return;
+            return
+        }
 
         // 配置参数
         const conf = {
@@ -98,10 +96,10 @@ class MailController {
             let info = await transporter.sendMail(sendMailOptions)
             if (info) {
                 // 存储状态
-                // await store.hmset(`nodemail:${username}`, 'code', code, 'expire', conf.expire(), 'email', email, 'storageTime', +new Date())
-                ctx.cookies.set(`nodemail:${username}`, code, {maxAge: conf.expire()}); // 验证码48小时有效
-                ctx.cookies.set(`expire:${username}`, 'expire', {maxAge: 60 * 1000}); // 一分钟之内发送一条
-                OK(ctx, 200, '验证码发送成功', {sms: ctx.cookies.get(`nodemail:${username}`), key: `nodemail:${username}`});
+                await store.hmset(`nodemail:${username}`, 'code', code, 'expire', conf.expire(), 'email', email, 'storageTime', +new Date())
+                // ctx.cookies.set(`nodemail:${username}`, code, {maxAge: conf.expire()}); // 验证码48小时有效
+                // ctx.cookies.set(`expire:${username}`, 'expire', {maxAge: 60 * 1000}); // 一分钟之内发送一条
+                OK(ctx, 200, '验证码发送成功', {sms: await store.hmget(`nodemail:${username}`), key: `nodemail:${username}`});
             }
         } catch (error) {
             OK(ctx, -1, '验证码发送失败，请重新尝试', {key: `nodemail:${username}`});
