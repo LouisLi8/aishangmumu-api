@@ -23,7 +23,8 @@ class userController {
                 }
                 else {
                     // const sms = ctx.cookies.get(`nodemail:${req.real_name}`);
-                    const sms = await store.hget(`nodemail:${username}`, 'code')
+                    // const sms = await store.hget(`nodemail:${username}`, 'code')
+                    const sms = await store.hget(`nodemail:${req.real_name}`, 'code')
                     // OK(ctx, 300, '成功！', sms);return
                     if(sms === req.sms) {
                         delete(req.sms);
