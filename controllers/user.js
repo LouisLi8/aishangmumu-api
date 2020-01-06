@@ -170,7 +170,7 @@ class userController {
         if(req.email && req.password){
             try{
                 //创建用户模型
-               const data = await UserModel.getUserDetail(req.email);
+               const data = await UserModel.getUserDetail({email: req.email});
                if(data) {
                    const password = data.password;
                    if(password === req.password) {
