@@ -218,12 +218,12 @@ class userController {
     }
     static async resetPasswordWithoutLogin(ctx){
         let req = ctx.request.body;
-        const {password, confirm_password, sms} = req;
+        const {email , password, confirm_password, sms} = req;
         if( password && confirm_password && sms){
             //接收客户端
-            const token = ctx.request.header.token;
+            // const userInfo = await UserModel.getUserDetail({email:req.email});
             // 查询用户详情模型
-            let data = await UserModel.getUserDetailByToken(token);
+            let data = await UserModel.getUserDetail({email});
             if(data) {
                 if(password !== confirm_password) {
                     OK(ctx, 300 ,'两次密码不一致', null)
@@ -239,7 +239,7 @@ class userController {
                 }
             }
             else {
-                OK(ctx, 401, '用户信息已经失效,请重新登录', data);
+                OK(ctx, 300, '用户信息不存在', null);
             }
         }else {
             OK(ctx, 300 ,'参数不齐全', null)

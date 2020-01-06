@@ -54,7 +54,7 @@ app.use(async (ctx, next) => {
 })
 
 // 用户拦截器，拦截非法请求，未携带token的请求
-const filteredRequest = ['/api/v1/user/login', '/api/v1/user/create']
+const filteredRequest = ['/api/v1/user/login', '/api/v1/user/create' ,'/api/v1/user/resetPasswordWithoutLogin']
 app.use(async (ctx, next) => {
   if(filteredRequest.includes(ctx.url)) {
     await next()
