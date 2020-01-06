@@ -22,7 +22,7 @@ class userController {
                     OK(ctx, 300, '邮箱已经存在！', null);
                 }
                 else {
-                    const sms = await store.hget(`nodemail:${data.email}`, 'code')
+                    const sms = await store.hget(`nodemail:${req.email}`, 'code')
                     if(sms == req.sms) {
                         delete(req.sms);
                         const ret = await UserModel.create(req);
