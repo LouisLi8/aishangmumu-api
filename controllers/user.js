@@ -230,7 +230,7 @@ class userController {
                     OK(ctx, 300 ,'两次密码不一致', null)
                 } else {
                     // const sms_ = ctx.cookies.get(`nodemail:${data.real_name}`);
-                    const sms = await store.hget(`nodemail:${username}`, 'code')
+                    const sms = await store.hget(`nodemail:${data.real_name}`, 'code')
                     if(sms === sms_) {
                         delete(req.sms);
                         const res = await UserModel.updatePassword({password, id: data.id});
