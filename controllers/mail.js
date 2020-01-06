@@ -101,10 +101,10 @@ class MailController {
                 // await store.hmset(`nodemail:${username}`, 'code', code, 'expire', conf.expire(), 'email', email, 'storageTime', +new Date())
                 ctx.cookies.set(`nodemail:${username}`, code, {maxAge: conf.expire()}); // 验证码48小时有效
                 ctx.cookies.set(`expire:${username}`, 'expire', {maxAge: 60 * 1000}); // 一分钟之内发送一条
-                OK(ctx, 200, '验证码发送成功', true);
+                OK(ctx, 200, '验证码发送成功', {sms: ctx.cookies.get(`nodemail:${username}`), key: `nodemail:${username}`});
             }
         } catch (error) {
-            OK(ctx, -1, '验证码发送失败，请重新尝试', error);
+            OK(ctx, -1, '验证码发送失败，请重新尝试', {key: `nodemail:${username}`});
         }
     }
 }
