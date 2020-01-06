@@ -8,6 +8,7 @@ const path = require('path');
 const koaBody = require('koa-body');
 const logger = require('koa-logger')
 const index = require('./routes/index')
+var cors = require('koa2-cors');
 
 // error handler
 onerror(app)
@@ -36,24 +37,25 @@ app.use(views(__dirname + '/views', {
 }))
 
 // 解决跨域问题
-app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', '*');
-  ctx.set('Access-Control-Allow-Headers', '*');
-  ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-  ctx.set('Cache-Control', 'no-cache');
-  ctx.set('Access-Control-Allow-Credentials', 'true'); 
-  ctx.set('Content-Type', 'application/json');
-  await next();
-})
+app.use(cors());
+// app.use(async (ctx, next) => {
+//   ctx.set('Access-Control-Allow-Origin', '*');
+//   ctx.set('Access-Control-Allow-Headers', '*');
+//   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+//   ctx.set('Cache-Control', 'no-cache');
+//   ctx.set('Access-Control-Allow-Credentials', 'true'); 
+//   ctx.set('Content-Type', 'application/json');
+//   await next();
+// })
 
-app.all('*', async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-  res.header('Content-Type', 'application/json');
-  res.header("Cache-Control","no-store");//304
-  await next();
-});
+// app.all('*', async (req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+//   res.header('Content-Type', 'application/json');
+//   res.header("Cache-Control","no-store");//304
+//   await next();
+// });
 
 // logger
 app.use(async (ctx, next) => {
