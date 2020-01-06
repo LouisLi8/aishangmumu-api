@@ -45,6 +45,15 @@ app.use(async (ctx, next) => {
   ctx.set('Content-Type', 'application/json');
   await next();
 })
+
+app.all('*', async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Cache-Control","no-store");//304
+  await next();
+});
+
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()
