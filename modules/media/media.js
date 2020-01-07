@@ -1,14 +1,16 @@
 // 引入mysql的配置文件
 const db = require('../../config/db');
-const {guid} =  require("../../utils/common");
 // 引入sequelize对象
 const Sequelize = db.sequelize;
 const Op = Sequelize.Op
 
 // 引入数据表模型
 const Media = Sequelize.import('../../schema/media/media');
-Media.sync({force: false}); //自动创建表
+const mediaRevenueAssemble = Sequelize.import('../../schema/media/mediaRevenueAssemble');
+//建立表关联关系  当前表（User）的字段： user_name  关联表（userRoom）的字段user_id
+Media.belongsTo(mediaRevenueAssemble, { foreignKey: 'number', as: 'revenue'});
 
+Media.sync({force: false}); //自动创建表
 class MediaModel {
     /**
      * 创建媒体模型
@@ -51,11 +53,20 @@ class MediaModel {
         name && (params_where.media_name = name);
         id && (params_where.id = id);
         return await Media.findOne({
-            where: params_where
+            where: params_where,
+            nclude: [{
+                model: mediaRevenueAssemble,
+                as: 'revenue',
+            }],
+            order: [['id', 'DESC']]
         });
     }
     static async getMediaListAll(){
         return await Media.findAll({
+            include: [{
+                model: mediaRevenueAssemble,
+                as: 'revenue',
+            }],
             order: [['id', 'DESC']]
         });
     }
@@ -65,14 +76,25 @@ class MediaModel {
         id && (params_where.id = id);
         return await Media.findAll({
             where: params_where,
+            include: [{
+                model: mediaRevenueAssemble,
+                as: 'revenue',
+            }],
             order: [['id', 'DESC']]
         });
     }
     static async getMediaList(user_id){
+        // return Sequelize.query(
+        //     `SELECT m.*,r.* FROM media m left join media_revenue_assemble r ON m.number = r.id WHERE m.user_id = ${user_id}`
+        //     )
         return await Media.findAll({
             where: {
                 user_id
             },
+            include: [{
+                model: mediaRevenueAssemble,
+                as: 'revenue',
+            }],
             order: [['id', 'DESC']]
         });
     }

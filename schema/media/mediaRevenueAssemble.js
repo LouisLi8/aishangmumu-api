@@ -1,13 +1,6 @@
 const moment = require("moment");
 module.exports = function(sequelize,DataTypes){
     return sequelize.define('media_revenue_assemble',{
-        // id:{
-        //     type: DataTypes.INTEGER,
-        //     primaryKey: true,
-        //     allowNull: true,
-        //     autoIncrement: true
-        // },
-        // 绑定的用户
         // 推啊编号
         id:{
             type: DataTypes.INTEGER,

@@ -7,6 +7,9 @@ const Op = Sequelize.Op
 
 // 引入数据表模型
 const AdvertisingPosition = Sequelize.import('../../schema/advertisingPosition/advertisingPosition');
+const adRevenueAssemble = Sequelize.import('../../schema/advertisingPosition/advertisingPositionAssemble');
+//建立表关联关系  当前表（User）的字段： user_name  关联表（userRoom）的字段user_id
+AdvertisingPosition.belongsTo(adRevenueAssemble, { foreignKey: 'number', as: 'revenue'});
 AdvertisingPosition.sync({force: false}); //自动创建表
 
 class AdvertisingModel {
@@ -42,11 +45,22 @@ class AdvertisingModel {
         name && (params_where.media_name = name);
         id && (params_where.id = id);
         return await AdvertisingPosition.findOne({
-            where: params_where
+            where: params_where,
+            include: [{
+                model: adRevenueAssemble,
+                as: 'revenue',
+            }],
+            order: [['id', 'DESC']]
         });
     }
     static async getMediaListAll(){
-        return await AdvertisingPosition.findAll();
+        return await AdvertisingPosition.findAll({
+            include: [{
+                model: adRevenueAssemble,
+                as: 'revenue',
+            }],
+            order: [['id', 'DESC']]
+        });
     }
     static async getMediaListAllByNameOrId(id,name){
         const params_where = {};
@@ -54,6 +68,10 @@ class AdvertisingModel {
         id && (params_where.id = id);
         return await AdvertisingPosition.findAll({
             where: params_where,
+            include: [{
+                model: adRevenueAssemble,
+                as: 'revenue',
+            }],
             order: [['id', 'DESC']]
         });
     }
@@ -61,7 +79,11 @@ class AdvertisingModel {
         return await AdvertisingPosition.findAll({
             where: {
                 user_id
-            }
+            },
+            include: [{
+                model: adRevenueAssemble,
+                as: 'revenue',
+            }],
         });
     }
 }
