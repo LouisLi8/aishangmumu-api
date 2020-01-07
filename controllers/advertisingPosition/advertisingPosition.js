@@ -52,7 +52,7 @@ class MediaController {
                 const data = await AdvertisingModel.updateStatus(req);
                 OK(ctx, 200, '广告更新成功！', data);
             }catch(err){
-                OK(ctx, 300, '广告更新失败，请稍后重试', await MediaModel.updateStatus(req));
+                OK(ctx, 300, '广告更新失败，请稍后重试', await AdvertisingModel.updateStatus(req));
             }
         }else {
             OK(ctx, 401, '信息已过期，请重新登录！', req);
