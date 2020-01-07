@@ -53,7 +53,7 @@ class MediaController {
                 const data = await MediaModel.updateNumber(req);
                 OK(ctx, 200, '媒体更新成功！', data);
             }catch(err){
-                OK(ctx, 300, '媒体更新失败，请稍后重试', await MediaModel.updateStatus(req));
+                OK(ctx, 300, '媒体的绑定ID必须真实存在！', null);
             }
         }else {
             OK(ctx, 401, '信息已过期，请重新登录！', req);

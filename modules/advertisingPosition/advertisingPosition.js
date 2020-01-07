@@ -86,6 +86,15 @@ class AdvertisingModel {
             }],
         });
     }
+    static async updateNumber(data){
+        return await AdvertisingPosition.update({
+            number: data.number
+        },{
+            where: {
+                id: data.id
+            }
+        })
+    }
 }
 
 module.exports = AdvertisingModel;

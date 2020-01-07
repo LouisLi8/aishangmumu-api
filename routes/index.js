@@ -61,6 +61,7 @@ router.post('/user/updateAgentStatus',UserController.updateAgentStatus)
 //创建用户
 router.post('/finance/create',FinanceController.create);
 router.get('/finance/info',FinanceController.info);
+router.post('/finance/updateFinance',FinanceController.updateFinance);
 // //获取详情
 // router.get('/user/info',UserController.getInfoByToken)
 // router.post('/user/info',UserController.info)
@@ -90,6 +91,7 @@ router.post('/media/search',MediaController.search)
  */
 router.post('/adposition/create',AdvertisingPositionController.create);
 router.post('/adposition/updateStatus',AdvertisingPositionController.updateStatus);
+router.post('/adposition/updateNumber',AdvertisingPositionController.updateNumber);
 router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.create);
 router.post('/advertisingAssemble/list',AdvertisingPositionAssembleController.list);
 router.post('/advertisingAssemble/search',AdvertisingPositionAssembleController.search);

@@ -26,6 +26,22 @@ class MediaController {
             OK(ctx, 401, '信息已过期，请重新登录！', req);
         }
     }
+    static async updateNumber(ctx){
+        //接收客户端
+        let headers = ctx.request.headers;
+        let req = ctx.request.body;
+        const userInfo = await UserModel.getUserDetailByToken(headers.token);
+        if(userInfo){
+            try{
+                const data = await AdvertisingModel.updateNumber(req);
+                OK(ctx, 200, '广告位更新成功！', data);
+            }catch(err){
+                OK(ctx, 300, '广告位的绑定ID必须真实存在！', null);
+            }
+        }else {
+            OK(ctx, 401, '信息已过期，请重新登录！', req);
+        }
+    }
     static async updateStatus(ctx){
         //接收客户端
         let headers = ctx.request.headers;

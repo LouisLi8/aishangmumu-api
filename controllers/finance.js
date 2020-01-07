@@ -43,6 +43,17 @@ class FinanceController {
             OK(ctx, 401, '用户信息过期', null);
         }
     }
+    static async updateFinance(ctx){
+        const req = ctx.request.body;
+        // 查询用户详情模型
+        let data = await FinanceModel.updateFinance(req);
+        if(data) {
+            OK(ctx, 200, '财务信息更新成功！', data);
+        }
+        else {
+            OK(ctx, 300, '财务信息更新失败', null);
+        }
+    }
 }
 
 module.exports = FinanceController;
