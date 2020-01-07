@@ -8,8 +8,11 @@ const Op = sequelize_i.Op;
 const {guid} =  require("../utils/common");
 // 引入数据表模型
 const User = Sequelize.import('../schema/user');
+const Finance = Sequelize.import('../schema/finance');
 const Revenue = Sequelize.import('../schema/revenue/revenue');
-User.hasOne(Revenue);
+
+User.belongsTo(Finance, { targetKey: 'user_id'});
+User.belongsTo(Revenue);
 User.sync({force: false}); //自动创建表
 
 class UserModel {
@@ -61,13 +64,19 @@ class UserModel {
             }]
         })
     }
-    static async getUserList(data){
+    static async getUserList(){
         // const total_size = await students.count();//表总记录数
         return await User.findAll({
-            include: [{
-                model: Revenue,
-                as: 'revenue',
-            }]
+            include: [
+                {
+                    model: Revenue,
+                    as: 'revenue',
+                },
+                {
+                    model: Finance,
+                    as: 'finance',
+                },
+            ]
         })
     }
     static async getUserListByEmail(email){

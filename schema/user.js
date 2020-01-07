@@ -32,19 +32,19 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             field: 'category'
         },
-        // 分类
+        // 公司名
         company_name:{
             type: DataTypes.STRING,
             allowNull: true,
             field: 'company_name'
         },
-        // 分类
+        // 真实名字
         real_name:{
             type: DataTypes.STRING,
             allowNull: true,
             field: 'real_name'
         },
-        // 分类
+        // 手机
         phone:{
             type: DataTypes.STRING,
             allowNull: true,
@@ -56,13 +56,13 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             field: 'has_media_contact'
         },
-        // 分类
+        // 媒体联系手机
         media_contact_phone:{
             type: DataTypes.STRING,
             allowNull: true,
             field: 'media_contact_phone'
         },
-        // 分类
+        // 邀请码
         invite_code:{
             type: DataTypes.STRING,
             allowNull: true
@@ -78,6 +78,14 @@ module.exports = function(sequelize,DataTypes){
         // 合同 收件人
         agent_consignee:{
             type: DataTypes.STRING
+        },
+        // 合同是否签署
+        agent_is_sign:{
+            type: DataTypes.STRING
+        },
+        // 是否管理员
+        is_admin:{
+            type: DataTypes.BOOLEAN
         },
         // 创建时间
         createdAt:{
