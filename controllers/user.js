@@ -101,6 +101,15 @@ class userController {
             OK(ctx, 300, '地址、联系方式和收件人信息不能为空！', ctx);
         }
     }
+    static async updateAgentStatus(ctx){
+        let req = ctx.request.body;
+        try{
+            let data = await UserModel.updateAgentStatus(req);
+            OK(ctx, 200, '合同状态修改成功', data);
+        }catch(err){
+            OK(ctx, 300, '合同状态修改失败', err);
+        }
+    }
     static async getInfoByToken(ctx){
         const token = ctx.request.header.token;
         if(token) {

@@ -54,6 +54,7 @@ router.get('/user/list',UserController.list)
 router.post('/user/login',UserController.login)
 // 修改合同信息
 router.post('/user/updateAgentInfo',UserController.updateAgentInfo)
+router.post('/user/updateAgentStatus',UserController.updateAgentStatus)
 /**
  * --------------------------------------------财务接口------------------------------------------------------
  */

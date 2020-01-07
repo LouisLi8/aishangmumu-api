@@ -81,11 +81,11 @@ module.exports = function(sequelize,DataTypes){
         },
         // 合同是否签署
         agent_is_sign:{
-            type: DataTypes.STRING
+            type: DataTypes.INTEGER
         },
         // 是否管理员
         is_admin:{
-            type: DataTypes.BOOLEAN
+            type: DataTypes.INTEGER
         },
         // 创建时间
         createdAt:{

@@ -11,8 +11,8 @@ const User = Sequelize.import('../schema/user');
 const Finance = Sequelize.import('../schema/finance');
 const Revenue = Sequelize.import('../schema/revenue/revenue');
 
-User.belongsTo(Finance, { targetKey: 'user_id'});
-User.belongsTo(Revenue);
+User.hasOne(Finance, { foreignKey: 'user_id'});
+User.hasOne(Revenue);
 User.sync({force: false}); //自动创建表
 
 class UserModel {
@@ -91,6 +91,15 @@ class UserModel {
             agent_adress: data.agent_adress,
             agent_tel: data.agent_tel,
             agent_consignee: data.agent_consignee,
+        },{
+            where: {
+                id: data.id
+            }
+        })
+    }
+    static async updateAgentStatus(data){
+        return await User.update({
+            agent_is_sign: data.agent_is_sign
         },{
             where: {
                 id: data.id
