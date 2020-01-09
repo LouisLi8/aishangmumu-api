@@ -13,6 +13,7 @@ const Revenue = Sequelize.import('../schema/revenue/revenue');
 
 User.hasOne(Finance, { foreignKey: 'user_id'});
 User.hasOne(Revenue);
+User.hasMany(User, {foreignKey: 'pid', through: null , as: 'sub_users'});
 User.sync({force: false}); //自动创建表
 
 class UserModel {
@@ -32,7 +33,7 @@ class UserModel {
             phone: data.phone,  //
             has_media_contact: data.has_media_contact,  //
             media_contact_phone: data.media_contact_phone,  //
-            invite_code: guid()
+            pid: data.pid | 0
         });
     }
 
@@ -79,6 +80,28 @@ class UserModel {
             ]
         })
     }
+    static async subUserList(id){
+        // const total_size = await students.count();//表总记录数
+        return await User.findOne({
+            where: {
+                id
+            },
+            include: [
+                {
+                    model: User,
+                    as: 'sub_users'
+                },
+                {
+                    model: Revenue,
+                    as: 'revenue'
+                },
+                {
+                    model: Finance,
+                    as: 'finance'
+                },
+            ]
+        })
+    }
     static async getUserListByEmail(email){
         let emailFilter = email ? { email: { [Op.like]: "%"+email+"%" } } : {}
         // const total_size = await students.count();//表总记录数
@@ -100,6 +123,15 @@ class UserModel {
     static async updateAgentStatus(data){
         return await User.update({
             agent_is_sign: data.agent_is_sign
+        },{
+            where: {
+                id: data.id
+            }
+        })
+    }
+    static async updatePercentage(data){
+        return await User.update({
+            percentage: data.percentage
         },{
             where: {
                 id: data.id

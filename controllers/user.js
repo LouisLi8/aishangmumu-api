@@ -110,6 +110,15 @@ class userController {
             OK(ctx, 300, '合同状态修改失败', err);
         }
     }
+    static async updatePercentage(ctx){
+        let req = ctx.request.body;
+        try{
+            let data = await UserModel.updatePercentage(req);
+            OK(ctx, 200, '分成比例修改成功', data);
+        }catch(err){
+            OK(ctx, 300, '分成比例修改失败', err);
+        }
+    }
     static async getInfoByToken(ctx){
         const token = ctx.request.header.token;
         if(token) {
@@ -151,6 +160,32 @@ class userController {
             
         }catch(err){
             OK(ctx, 300, '查询失败', await UserModel.getUserList(req));
+        }
+    }
+    static async subUserList(ctx){
+        const req = ctx.request.body;
+        const token = ctx.request.header.token;
+        // 查询用户详情模型
+        let userInfo = await UserModel.getUserDetailByToken(token);
+        if(userInfo) {
+            // OK(ctx, 200, '查询成功', ctx);return
+            req.page = req.page || 1;
+            req.size = req.size || 20;
+            try{
+                // 查询用户详情模型
+                let data = await UserModel.subUserList(userInfo.id);
+                if(data) {
+                    OK(ctx, 200, '查询成功', data);
+                }
+                else {
+                    OK(ctx, 300, '未询到数据', data);
+                }
+                
+            }catch(err){
+                OK(ctx, 300, '查询失败', await UserModel.subUserList(req));
+            }
+        } else {
+            OK(ctx, 401, '身份过期,请重新登录', null);
         }
     }
     static async search(ctx){

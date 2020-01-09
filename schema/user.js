@@ -62,12 +62,15 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             field: 'media_contact_phone'
         },
-        // 邀请码
-        invite_code:{
-            type: DataTypes.STRING,
-            allowNull: true
+        // 分成比列
+        percentage:{
+            type:  DataTypes.DECIMAL(3,2)
         },
-        // 合同地址
+        // 上级用户id
+        pid:{
+            type: DataTypes.INTEGER
+        },
+        // 合同 地址
         agent_adress:{
             type: DataTypes.STRING
         },

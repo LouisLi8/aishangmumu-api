@@ -50,6 +50,7 @@ router.get('/user/info',UserController.getInfoByToken)
 router.post('/user/info',UserController.info)
 //获取列表
 router.get('/user/list',UserController.list)
+router.get('/user/subList',UserController.subUserList)
 //登录
 router.post('/user/login',UserController.login)
 // 修改合同信息
