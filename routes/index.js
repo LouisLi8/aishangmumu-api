@@ -54,6 +54,7 @@ router.get('/user/subList',UserController.subUserList)
 //登录
 router.post('/user/login',UserController.login)
 // 修改合同信息
+router.post('/user/updatePercentage',UserController.updatePercentage)
 router.post('/user/updateAgentInfo',UserController.updateAgentInfo)
 router.post('/user/updateAgentStatus',UserController.updateAgentStatus)
 /**

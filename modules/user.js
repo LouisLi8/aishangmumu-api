@@ -33,7 +33,7 @@ class UserModel {
             phone: data.phone,  //
             has_media_contact: data.has_media_contact,  //
             media_contact_phone: data.media_contact_phone,  //
-            pid: data.pid | 0
+            pid: data.pid || 0
         });
     }
 
