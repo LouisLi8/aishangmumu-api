@@ -13,6 +13,11 @@ module.exports = function(sequelize,DataTypes){
             allowNull: true,
             field: 'user_id'
         },
+        // 绑定的用户
+        pid:{
+            type: DataTypes.INTEGER,
+            field: 'pid'
+        },
         // 推啊编号
         number:{
             type: DataTypes.INTEGER

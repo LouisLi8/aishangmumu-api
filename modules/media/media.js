@@ -2,7 +2,7 @@
 const db = require('../../config/db');
 // 引入sequelize对象
 const Sequelize = db.sequelize;
-const Op = Sequelize.Op
+const Op = require('sequelize').Op
 
 // 引入数据表模型
 const Media = Sequelize.import('../../schema/media/media');
@@ -89,7 +89,7 @@ class MediaModel {
         //     )
         return await Media.findAll({
             where: {
-                user_id
+                [Op.or]: [{user_id: user_id}, {pid: user_id}]
             },
             include: [{
                 model: mediaRevenueAssemble,

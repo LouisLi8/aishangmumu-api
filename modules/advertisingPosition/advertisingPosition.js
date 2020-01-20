@@ -3,7 +3,7 @@ const db = require('../../config/db');
 const {guid} =  require("../../utils/common");
 // 引入sequelize对象
 const Sequelize = db.sequelize;
-const Op = Sequelize.Op
+const Op = require('sequelize').Op;
 
 // 引入数据表模型
 const AdvertisingPosition = Sequelize.import('../../schema/advertisingPosition/advertisingPosition');
@@ -78,7 +78,7 @@ class AdvertisingModel {
     static async getList(user_id){
         return await AdvertisingPosition.findAll({
             where: {
-                user_id
+                [Op.or]: [{user_id: user_id}, {pid: user_id}]
             },
             include: [{
                 model: adRevenueAssemble,

@@ -11,6 +11,10 @@ module.exports = function(sequelize,DataTypes){
         user_id:{
             type: DataTypes.INTEGER
         },
+        // 绑定的用户
+        pid:{
+            type: DataTypes.INTEGER
+        },
         // 绑定的媒体
         media_id:{
             type: DataTypes.INTEGER
