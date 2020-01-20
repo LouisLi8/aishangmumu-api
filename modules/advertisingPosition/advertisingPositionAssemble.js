@@ -31,7 +31,6 @@ class AdRevenueAssembleModel {
         });
     }
     static async list(id){
-        // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
         return await adRevenueAssemble.findAll({
             where:{
                 user_id: id
@@ -39,8 +38,12 @@ class AdRevenueAssembleModel {
             order: [["id", "DESC"]]
         });
     }
+    static async listAll(){
+        return await adRevenueAssemble.findAll({
+            order: [["id", "DESC"]]
+        });
+    }
     static async search(id){
-        // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
         return await adRevenueAssemble.findAll({
             where:{
                 id

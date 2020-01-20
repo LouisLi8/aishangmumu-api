@@ -81,6 +81,7 @@ router.post('/media/updateStatus',MediaController.updateStatus);
 router.post('/media/updateNumber',MediaController.updateNumber);
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
 router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
+router.post('/mediaRevenueAssemble/listAll',MediaRevenueAssembleController.listAll);
 router.post('/mediaRevenueAssemble/search',MediaRevenueAssembleController.search);
 //获取详情
 router.post('/media/info',MediaController.detail)
@@ -96,6 +97,7 @@ router.post('/adposition/updateStatus',AdvertisingPositionController.updateStatu
 router.post('/adposition/updateNumber',AdvertisingPositionController.updateNumber);
 router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.create);
 router.post('/advertisingAssemble/list',AdvertisingPositionAssembleController.list);
+router.post('/advertisingAssemble/listAll',AdvertisingPositionAssembleController.listAll);
 router.post('/advertisingAssemble/search',AdvertisingPositionAssembleController.search);
 //获取列表
 router.get('/adposition/list',AdvertisingPositionController.list)

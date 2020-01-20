@@ -62,6 +62,16 @@ class MediaRevenueAssembleController {
             OK(ctx, 401, '信息已过期，请重新登录！', null);
         }
     }
+    static async listAll(ctx){
+        let headers = ctx.request.headers;
+        const userInfo = await UserModel.getUserDetailByToken(headers.token);
+        if(userInfo){
+            const data = await AdvertisingPositionAssembleModel.listAll();
+            OK(ctx, 200, '广告位收益数据查询成功！', data);
+        } else {
+            OK(ctx, 401, '信息已过期，请重新登录！', null);
+        }
+    }
     static async search(ctx){
         let id = ctx.request.body.id || "";
         const data = await AdvertisingPositionAssembleModel.search(id);
