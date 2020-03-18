@@ -15,9 +15,11 @@ const FinanceController = require('../controllers/finance');
 // 媒体
 const MediaController = require('../controllers/media/media');
 const MediaRevenueAssembleController = require('../controllers/media/mediaRevenueAssemble');
+const MediaRevenueDailyController = require('../controllers/media/mediaRevenueDaily');
 // 广告
 const AdvertisingPositionController = require('../controllers/advertisingPosition/advertisingPosition');
 const AdvertisingPositionAssembleController = require('../controllers/advertisingPosition/advertisingPositionAssemble');
+const AdvertisingPositionDailyController = require('../controllers/advertisingPosition/advertisingPositionDaily');
 /**
  * --------------------------------------------上传接口------------------------------------------------------
  */
@@ -83,6 +85,11 @@ router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create
 router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
 router.post('/mediaRevenueAssemble/listAll',MediaRevenueAssembleController.listAll);
 router.post('/mediaRevenueAssemble/search',MediaRevenueAssembleController.search);
+
+router.post('/mediaRevenueDaily/create',MediaRevenueDailyController.create);
+router.post('/mediaRevenueDaily/list',MediaRevenueDailyController.list);
+router.post('/mediaRevenueDaily/listAll',MediaRevenueDailyController.listAll);
+router.post('/mediaRevenueDaily/search',MediaRevenueDailyController.search);
 //获取详情
 router.post('/media/info',MediaController.detail)
 //获取列表
@@ -99,6 +106,11 @@ router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.
 router.post('/advertisingAssemble/list',AdvertisingPositionAssembleController.list);
 router.post('/advertisingAssemble/listAll',AdvertisingPositionAssembleController.listAll);
 router.post('/advertisingAssemble/search',AdvertisingPositionAssembleController.search);
+
+router.post('/advertisingDaily/create',AdvertisingPositionDailyController.create);
+router.post('/advertisingDaily/list',AdvertisingPositionDailyController.list);
+router.post('/advertisingDaily/listAll',AdvertisingPositionDailyController.listAll);
+router.post('/advertisingDaily/search',AdvertisingPositionDailyController.search);
 //获取列表
 router.get('/adposition/list',AdvertisingPositionController.list)
 router.get('/adposition/listAll',AdvertisingPositionController.listAll)

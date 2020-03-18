@@ -1,23 +1,51 @@
 const moment = require("moment");
 module.exports = function(sequelize,DataTypes){
     return sequelize.define('media_revenue_daily',{
-        id:{
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            allowNull: true,
-            autoIncrement: true
-        },
         // 订单收益日期
+        id:{
+            type: DataTypes.STRING,
+            primaryKey: false,
+        },
         time:{
-            type: DataTypes.DATE
+            primaryKey: true,
+            type: DataTypes.STRING
+        },
+        // 绑定的媒体
+        media_id:{
+            primaryKey: true,
+            type: DataTypes.INTEGER
         },
         // 绑定的用户
         user_id:{
             type: DataTypes.INTEGER
         },
+        // 曝光量
+        exposure:{
+            type: DataTypes.STRING
+        },
+        // 点击量
+        clicks:{
+            type: DataTypes.STRING
+        },
+        // 点击率
+        click_rate:{
+            type: DataTypes.STRING
+        },
+        // CPC
+        cpc:{
+            type: DataTypes.STRING
+        },
+        // CPM
+        cpm:{
+            type: DataTypes.STRING
+        },
+        // IP访问量
+        ip_traffic:{
+            type: DataTypes.STRING
+        },
         // 推啊编号
         number:{
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         // 名称
         media_name:{
@@ -32,16 +60,16 @@ module.exports = function(sequelize,DataTypes){
         //     type: DataTypes.BOOLEAN,
         // },
         // 广告位访问 PV
-        ad_access_uv:{
-            type: DataTypes.BOOLEAN
+        ad_access_pv:{
+            type: DataTypes.STRING
         },
         // 广告位访问 UV
         ad_access_uv:{
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         // 每uv收益
         earnings_per_uv:{
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         // 预计收益
         estimated_revenue:{

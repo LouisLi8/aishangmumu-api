@@ -1,11 +1,11 @@
 const { OK } = require('../utils/package');
 const fs = require('fs');
 const path = require('path');
-const uploadUrl = "http://api.jmaogou.com";
+const uploadUrl = "http://192.168.8.62:3000";
 class uploadController {
   static async upload(ctx) {
     const file = ctx.request.files.file;
-    let headers = ctx.request.headers;
+    // OK(ctx, 200, 'OK', ctx.request.files);
     // 创建可读流
     const reader = fs.createReadStream(file.path);
     let filePath = path.join(__dirname, '../public/upload/') + `${file.name}`;
