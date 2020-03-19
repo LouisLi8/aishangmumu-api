@@ -2,7 +2,10 @@
 const db = require('../../config/db');
 // 引入sequelize对象
 const Sequelize = db.sequelize;
-const Op = Sequelize.Op
+
+const Sequelized = require('sequelize');
+const Op = Sequelized.Op;
+
 
 // 引入数据表模型
 const advertisingPositionDaily = Sequelize.import('../../schema/advertisingPosition/advertisingPositionDaily');
@@ -41,7 +44,11 @@ class AdvertisingPositionDailyModel {
         // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
         return await advertisingPositionDaily.findAll({
             where:{
-                ad_id: id
+                ad_id: id,
+                time: {
+                    [Op.lt]: new Date(),
+                    [Op.gt]: new Date(new Date() - 31 * 24 * 60 * 60 * 1000)
+                }
             },
             order: [["time", "DESC"]]
         });
