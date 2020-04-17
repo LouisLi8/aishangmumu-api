@@ -80,6 +80,21 @@ class MediaController {
             OK(ctx, 300, '媒体ID或者名称必须传', null);
         }
     }
+    static async delById(ctx){
+        let id = ctx.request.body.id || "";
+        let name = ctx.request.body.name || '';
+        if(id || name){
+            try{
+                // 查询媒体详情模型
+                let data = await MediaModel.delById(id);
+                OK(ctx, 200, '删除成功', data);
+            }catch(err){
+                OK(ctx, 300, '查询失败', err);
+            }
+        }else {
+            OK(ctx, 300, '媒体ID或者名称必须传', null);
+        }
+    }
     static async search(ctx){
         let id = ctx.request.body.id || "";
         let media_name = ctx.request.body.media_name || '';

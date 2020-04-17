@@ -42,6 +42,13 @@ class MediaModel {
             }
         })
     }
+    static async delById(data){
+        return await Media.update({
+            where: {
+                id: data.id
+            }
+        })
+    }
 
     /**
      * 查询文章的详情

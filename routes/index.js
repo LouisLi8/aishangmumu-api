@@ -79,6 +79,7 @@ router.post('/finance/updateFinance',FinanceController.updateFinance);
  * -----------------------------------------媒体接口---------------------------------------------------------
  */
 router.post('/media/create',MediaController.create);
+router.post('/media/delById',MediaController.delById);
 router.post('/media/updateStatus',MediaController.updateStatus);
 router.post('/media/updateNumber',MediaController.updateNumber);
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
