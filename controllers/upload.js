@@ -1,7 +1,7 @@
 const { OK } = require('../utils/package');
 const fs = require('fs');
 const path = require('path');
-const uploadUrl = "http://192.168.8.62:3000";
+const uploadUrl = "http://ssp.jmaogou.com:3000/";
 class uploadController {
   static async upload(ctx) {
     const file = ctx.request.files.file;
