@@ -47,7 +47,8 @@ class AdvertisingPositionDailyModel {
                 ad_id: id,
                 time: {
                     [Op.lt]: new Date(),
-                    [Op.gt]: new Date(new Date() - 31 * 24 * 60 * 60 * 1000)
+                    // 365天
+                    [Op.gt]: new Date(new Date() - 365 * 24 * 60 * 60 * 1000)
                 }
             },
             order: [["time", "DESC"]]
