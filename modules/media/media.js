@@ -42,14 +42,21 @@ class MediaModel {
             }
         })
     }
-    static async delById(data){
-        return await Media.update({
+    // static async delById(data){
+    //     return await Media.update({
+    //         where: {
+    //             id: data.id
+    //         }
+    //     })
+    // }
+    static async del(id){
+        // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
+        return await Media.destroy({
             where: {
-                id: data.id
+                id
             }
         })
     }
-
     /**
      * 查询文章的详情
      * @param id 文章ID

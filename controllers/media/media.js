@@ -131,6 +131,17 @@ class MediaController {
             OK(ctx, 401, '未登录', null);
         }
     }
+    static async del(ctx){
+        let headers = ctx.request.headers;
+        const id = ctx.request.body.id;
+        const userInfo = await UserModel.getUserDetailByToken(headers.token);
+        if(userInfo) {
+            const data = await MediaModel.del(id);
+            OK(ctx, 200, '成功！', data);
+        } else {
+            OK(ctx, 401, '信息已过期，请重新登录！', null);
+        }
+    }
     static async listAll(ctx){
         try{
             // 查询媒体详情模型--所有用户的

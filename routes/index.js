@@ -78,16 +78,20 @@ router.post('/finance/updateFinance',FinanceController.updateFinance);
 /**
  * -----------------------------------------媒体接口---------------------------------------------------------
  */
+router.post('/media/del',MediaController.del);
 router.post('/media/create',MediaController.create);
 router.post('/media/delById',MediaController.delById);
 router.post('/media/updateStatus',MediaController.updateStatus);
 router.post('/media/updateNumber',MediaController.updateNumber);
+// 媒体总数据
 router.post('/mediaRevenueAssemble/create',MediaRevenueAssembleController.create);
+router.post('/mediaRevenueAssemble/del',MediaRevenueAssembleController.del);
 router.post('/mediaRevenueAssemble/list',MediaRevenueAssembleController.list);
 router.post('/mediaRevenueAssemble/listAll',MediaRevenueAssembleController.listAll);
 router.post('/mediaRevenueAssemble/search',MediaRevenueAssembleController.search);
-
+// 媒体每日收益
 router.post('/mediaRevenueDaily/create',MediaRevenueDailyController.create);
+router.post('/mediaRevenueDaily/del',MediaRevenueDailyController.del);
 router.post('/mediaRevenueDaily/list',MediaRevenueDailyController.list);
 router.post('/mediaRevenueDaily/listAll',MediaRevenueDailyController.listAll);
 router.post('/mediaRevenueDaily/search',MediaRevenueDailyController.search);
@@ -100,14 +104,18 @@ router.post('/media/search',MediaController.search)
 /**
  * -----------------------------------广告接口-----------------------------------------------------------------
  */
+router.post('/adposition/del',AdvertisingPositionController.del);
 router.post('/adposition/create',AdvertisingPositionController.create);
 router.post('/adposition/updateStatus',AdvertisingPositionController.updateStatus);
 router.post('/adposition/updateNumber',AdvertisingPositionController.updateNumber);
+// 总数据
+router.post('/advertisingAssemble/del',AdvertisingPositionAssembleController.del);
 router.post('/advertisingAssemble/create',AdvertisingPositionAssembleController.create);
 router.post('/advertisingAssemble/list',AdvertisingPositionAssembleController.list);
 router.post('/advertisingAssemble/listAll',AdvertisingPositionAssembleController.listAll);
 router.post('/advertisingAssemble/search',AdvertisingPositionAssembleController.search);
-
+// 每日数据
+router.post('/advertisingDaily/del',AdvertisingPositionDailyController.del);
 router.post('/advertisingDaily/create',AdvertisingPositionDailyController.create);
 router.post('/advertisingDaily/list',AdvertisingPositionDailyController.list);
 router.post('/advertisingDaily/listAll',AdvertisingPositionDailyController.listAll);

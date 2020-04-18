@@ -36,6 +36,14 @@ class MediaRevenueAssembleModel {
             order: [["id", "DESC"]]
         });
     }
+    static async del(id){
+        // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
+        return await mediaRevenueAssemble.destroy({
+            where: {
+                id
+            }
+        })
+    }
     static async listAll(){
         // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
         return await mediaRevenueAssemble.findAll({

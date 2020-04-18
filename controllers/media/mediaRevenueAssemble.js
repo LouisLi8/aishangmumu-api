@@ -62,12 +62,14 @@ class MediaRevenueAssembleController {
             OK(ctx, 401, '信息已过期，请重新登录！', null);
         }
     }
+    
     static async del(ctx){
         let headers = ctx.request.headers;
+        let id = ctx.request.body.id;
         const userInfo = await UserModel.getUserDetailByToken(headers.token);
         if(userInfo){
-            const data = await MediaRevenueAssembleModel.list(userInfo.id);
-            OK(ctx, 200, '媒体收益数据查询成功！', data);
+            const data = await MediaRevenueAssembleModel.del(id);
+            OK(ctx, 200, '成功！', data);
         } else {
             OK(ctx, 401, '信息已过期，请重新登录！', null);
         }

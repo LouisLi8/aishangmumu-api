@@ -86,6 +86,14 @@ class AdvertisingModel {
             }],
         });
     }
+    static async del(id){
+        // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
+        return await AdvertisingPosition.destroy({
+            where: {
+                id
+            }
+        })
+    }
     static async updateNumber(data){
         return await AdvertisingPosition.update({
             number: data.number
