@@ -46,9 +46,9 @@ class AdvertisingPositionDailyModel {
             where:{
                 ad_id: id,
                 time: {
-                    [Op.lt]: startTime || new Date(),
+                    [Op.lt]: new Date(startTime) || new Date(),
                     // 365天
-                    [Op.gt]: endTime || new Date(new Date() - 365 * 24 * 60 * 60 * 1000)
+                    [Op.gt]: new Date(endTime) || new Date(new Date() - 365 * 24 * 60 * 60 * 1000)
                 }
             },
             order: [["time", "DESC"]]
