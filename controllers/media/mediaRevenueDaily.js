@@ -66,9 +66,11 @@ class MediaRevenueDailyController {
     static async list(ctx){
         let headers = ctx.request.headers;
         let media_id = ctx.request.body.media_id;
+        let startTime = ctx.request.body.startTime;
+        let endTime = ctx.request.body.endTime;
         const userInfo = await UserModel.getUserDetailByToken(headers.token);
         if(userInfo){
-            const data = await MediaRevenueDailyModel.list(media_id);
+            const data = await MediaRevenueDailyModel.list(media_id, startTime, endTime);
             OK(ctx, 200, '媒体收益数据查询成功！', data);
         } else {
             OK(ctx, 401, '信息已过期，请重新登录！', null);
