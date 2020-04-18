@@ -38,15 +38,15 @@ class mediaRevenueDailyModel {
             ]
         });
     }
-    static async list(id, startTime = new Date(), endTime = new Date(new Date() - 365 * 24 * 60 * 60 * 1000) ){
+    static async list(id, startTime , endTime){
         // 这段意思是，如果 主键id 存在，则更新以下属性，不存在则插入整个数组
         return await mediaRevenueDaily.findAll({
             where:{
                 media_id: id,
                 time: {
-                    [Op.lt]: startTime,
+                    [Op.lt]: startTime || new Date(),
                     // 365天
-                    [Op.gt]: endTime
+                    [Op.gt]: endTime || new Date(new Date() - 365 * 24 * 60 * 60 * 1000)
                 }
             },
             order: [["time", "DESC"]]
