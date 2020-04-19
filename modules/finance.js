@@ -37,7 +37,10 @@ class FinanceModel {
         return await Finance.findAll()
     }
     static async updateFinance(data){
-        return await Finance.update(data,{
+        return await Finance.update({
+            status: data.status,
+            status_name: data.status_name
+        },{
             where: {
                 id: data.id
             }
