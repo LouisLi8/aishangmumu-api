@@ -147,6 +147,13 @@ class UserModel {
             }
         })
     }
+    static async del(id){
+        return await User.destroy({
+            where: {
+                id
+            }
+        })
+    }
 }
 
 module.exports = UserModel;

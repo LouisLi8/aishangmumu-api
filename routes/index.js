@@ -39,6 +39,8 @@ router.get('/qcode/info',QcodeController.info);
  */
 //创建用户
 router.post('/user/create',UserController.create);
+// 删除用户
+router.post('/user/del',UserController.del);
 // 用户收益
 router.post('/user/revenue/create',RevenueController.create);
 router.post('/user/revenue/listAll',RevenueController.listAll);
