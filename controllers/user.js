@@ -261,21 +261,21 @@ class userController {
     }
     static async del(ctx){
         let req = ctx.request.body;
-        if(req.old_pass && req.password && req.confirm_password){
-            //接收客户端
-            const token = ctx.request.header.token;
-            const { id } = ctx.request.body
-            // 查询用户详情模型
-            let data = await UserModel.getUserDetailByToken(token);
-            if(data && data.is_admin) {
+        //接收客户端
+        const token = ctx.request.header.token;
+        const { id } = ctx.request.body
+        // 查询用户详情模型
+        let data = await UserModel.getUserDetailByToken(token);
+        if(data && data.is_admin) {
+            if(id) {
                 const res = await UserModel.del(id);
                 OK(ctx, 200, '用户删除成功', res);
+            } else {
+                OK(ctx, 300 ,'参数不齐全', null);
             }
-            else {
-                OK(ctx, 401, '用户信息已经失效,请重新登录', data);
-            }
-        }else {
-            OK(ctx, 300 ,'参数不齐全', null)
+        }
+        else {
+            OK(ctx, 401, '用户信息已经失效,请重新登录', data);
         }
     }
     static async resetPasswordWithoutLogin(ctx){
