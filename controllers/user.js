@@ -260,7 +260,6 @@ class userController {
         }
     }
     static async del(ctx){
-        let req = ctx.request.body;
         //接收客户端
         const token = ctx.request.header.token;
         const { id } = ctx.request.body
