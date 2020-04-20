@@ -42,7 +42,7 @@ class FinanceModel {
             status_name: data.status_name
         },{
             where: {
-                id: data.id
+                user_id: data.id
             }
         })
     }
